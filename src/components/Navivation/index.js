@@ -12,7 +12,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#d92626',
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
+  },
+  alignItems: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  logo: {
+    marginLeft: theme.spacing(2),
   },
 }))
 
@@ -22,18 +29,18 @@ const Navigation = () => {
   return (
     // <div className={classes.root}>
     <AppBar className={classes.root} position='static'>
-      <Toolbar variant='dense'>
+      <Toolbar variant='regular' className={classes.alignItems}>
+        <Typography className={classes.logo} variant='h6' color='inherit'>
+          My Pomodoro
+        </Typography>
         <IconButton
-          edge='start'
+          edge='end'
           className={classes.menuButton}
           color='inherit'
           aria-label='menu'
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant='h6' color='inherit'>
-          Photos
-        </Typography>
       </Toolbar>
     </AppBar>
     // </div>
