@@ -1,12 +1,13 @@
 import './App.css'
-import Navigation from './components/Navivation/index.js'
+import Navigation from './components/Navivation'
+import Timer from './components/Timer'
 
 function App() {
   return (
     <div className='App'>
       <Navigation />
       <header className='App-header'>
-        <p>My Pomodoro</p>
+        <Timer />
       </header>
     </div>
   )
