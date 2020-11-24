@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import TimerControl from './TimerControl'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -10,7 +11,7 @@ const useTimerStyles = makeStyles((theme) => ({
 const Timer = (props) => {
   const { root } = useTimerStyles()
   const [seconds, setSeconds] = useState(1500)
-  const [isActive, setIsActive] = useState(true)
+  const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
     let interval = null
@@ -28,6 +29,7 @@ const Timer = (props) => {
     <>
       <div>
         <span className={root}>{seconds}</span>
+        <TimerControl isActive={isActive} setIsActive={setIsActive} />
       </div>
     </>
   )
