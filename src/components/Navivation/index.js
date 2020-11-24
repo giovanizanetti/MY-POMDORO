@@ -6,17 +6,9 @@ import SideBar from './SideBar'
 
 const Navigation = () => {
   const { root, alignNavItems, logo, menuButton } = useNavStyles()
-  const [isVisible, setIsVisible] = useState(false)
 
-  const toggleSideBar = () => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return
-    }
-    setIsVisible(!isVisible)
-  }
+  const [isVisible, setIsVisible] = useState(false)
+  const toggleSideBar = () => setIsVisible(!isVisible)
 
   return (
     <>
@@ -30,7 +22,7 @@ const Navigation = () => {
             className={menuButton}
             color='inherit'
             aria-label='menu'
-            onClick={toggleSideBar()}
+            onClick={() => toggleSideBar()}
           >
             <MenuIcon />
           </IconButton>

@@ -21,8 +21,8 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
         [fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role='presentation'
-      onClick={toggleSideBar()}
-      onKeyDown={toggleSideBar()}
+      onClick={() => toggleSideBar()}
+      onKeyDown={() => toggleSideBar()}
     >
       <List>
         <ListItem button>My Pomodoro App</ListItem>
@@ -51,7 +51,11 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
     <div>
       {
         <>
-          <Drawer anchor='right' open={isVisible} onClose={toggleSideBar()}>
+          <Drawer
+            anchor='right'
+            open={isVisible}
+            onClose={() => toggleSideBar()}
+          >
             {renderList('right')}
           </Drawer>
         </>
