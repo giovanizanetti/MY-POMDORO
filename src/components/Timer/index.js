@@ -23,6 +23,7 @@ const Timer = (props) => {
   useEffect(() => {
     let interval = null
     if (isActive) {
+      time === 0 && setIsActive(false) // Stop the timer
       interval = setInterval(() => {
         setTime((time) => time - 1)
       }, 1000)
