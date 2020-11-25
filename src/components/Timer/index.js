@@ -29,7 +29,12 @@ const Timer = (props) => {
     <>
       <div>
         <span className={root}>{seconds}</span>
-        <TimerControl isActive={isActive} setIsActive={setIsActive} />
+        <TimerControl
+          isActive={isActive}
+          setIsActive={setIsActive}
+          seconds={seconds}
+          setSeconds={setSeconds}
+        />
       </div>
     </>
   )
