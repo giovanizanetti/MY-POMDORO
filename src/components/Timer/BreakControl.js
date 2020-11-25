@@ -14,14 +14,17 @@ const useBreakControlStyles = makeStyles((theme) => ({
 
 const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
   const { root, m, mr } = useBreakControlStyles()
+
+  const handleBreak = (breakLengh) => {
+    setTime(breakLengh)
+    setIsActive(true)
+  }
+
   return (
     <>
       <Toolbar variant='dense' className={root}>
         <Button
-          onClick={() => {
-            setTime(300)
-            setIsActive(true)
-          }}
+          onClick={() => handleBreak(300)}
           variant='contained'
           className={m}
         >
