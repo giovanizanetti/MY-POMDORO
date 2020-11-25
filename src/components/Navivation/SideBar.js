@@ -8,9 +8,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Icon,
 } from '@material-ui/core'
-
-import Icon from '@material-ui/core/Icon'
 
 export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
   const { list, fullList } = useSideBarStyles()
