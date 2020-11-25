@@ -15,7 +15,7 @@ const useTimerControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const TimerControl = ({ isActive, setIsActive }) => {
+const TimerControl = ({ isActive, setIsActive, seconds, setSeconds }) => {
   const { root, buttonSecondary, controllers } = useTimerControlStyles()
   return (
     <>
@@ -33,7 +33,15 @@ const TimerControl = ({ isActive, setIsActive }) => {
           <Pause />
           Pause
         </Button>
-        <Button className={controllers} variant='contained' color='secondary'>
+        <Button
+          onClick={() => {
+            setIsActive(false)
+            setSeconds(1500)
+          }}
+          className={controllers}
+          variant='contained'
+          color='secondary'
+        >
           <Stop />
           Cancel
         </Button>
