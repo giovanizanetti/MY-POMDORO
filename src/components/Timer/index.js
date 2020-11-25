@@ -13,6 +13,7 @@ const Timer = (props) => {
   const { root } = useTimerStyles()
   const [time, setTime] = useState(1500)
   const [isActive, setIsActive] = useState(false)
+  const [playSong, setPlaySong] = useState(false)
   const minutes = Math.floor(time / 60) % 60
 
   const seconds = () => {
@@ -21,9 +22,23 @@ const Timer = (props) => {
   }
 
   useEffect(() => {
+    const audio = new Audio('/songs/alarm_not_too_loud.mp3')
+
     let interval = null
+
+    const handleStopSong = () => audio.pause()
+
+    if (time === 0) {
+      setIsActive(false)
+      setPlaySong(true)
+      audio.play()
+      audio.loop = true
+      // If the user not cancel the song will play for 20sec
+      setTimeout(() => audio.pause(), 10000)
+    }
+
+    if (time) setPlaySong(false)
     if (isActive) {
-      time === 0 && setIsActive(false) // Stop the timer
       interval = setInterval(() => {
         setTime((time) => time - 1)
       }, 1000)
@@ -31,7 +46,7 @@ const Timer = (props) => {
       clearInterval(interval)
     }
     return () => clearInterval(interval)
-  }, [isActive, time])
+  }, [isActive, time, setPlaySong, playSong])
 
   return (
     <>
