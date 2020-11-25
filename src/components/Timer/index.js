@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
@@ -9,35 +9,35 @@ const useTimerStyles = makeStyles((theme) => ({
   },
 }))
 
-const Timer = (props) => {
+const Timer = () => {
   const { root } = useTimerStyles()
   const [time, setTime] = useState(1500)
   const [isActive, setIsActive] = useState(false)
-  const [playSong, setPlaySong] = useState(false)
+  const [playSong, setPlaySong] = useState(true)
   const minutes = Math.floor(time / 60) % 60
+  // const audio = new Audio('/songs/beat-alarm.mp3')
+  const audioRef = useRef()
 
   const seconds = () => {
     const formatedSeconds = `0${time % 60}`
     return time % 60 < 10 ? formatedSeconds : time % 60
   }
 
+  const playSound = () => {
+    audioRef.current.play()
+    setTimeout(() => stopSound(), 20000)
+  }
+
+  const stopSound = () => {
+    audioRef.current.pause()
+  }
+
   useEffect(() => {
-    const audio = new Audio('/songs/alarm_not_too_loud.mp3')
-
     let interval = null
-
-    const handleStopSong = () => audio.pause()
-
     if (time === 0) {
       setIsActive(false)
-      setPlaySong(true)
-      audio.play()
-      audio.loop = true
-      // If the user not cancel the song will play for 20sec
-      setTimeout(() => audio.pause(), 10000)
+      playSong && playSound() //play sound if the user choose to
     }
-
-    if (time) setPlaySong(false)
     if (isActive) {
       interval = setInterval(() => {
         setTime((time) => time - 1)
@@ -45,17 +45,23 @@ const Timer = (props) => {
     } else if (!isActive && time !== 0) {
       clearInterval(interval)
     }
+
     return () => clearInterval(interval)
-  }, [isActive, time, setPlaySong, playSong])
+  }, [isActive, time, playSound, playSong])
 
   return (
     <>
+      <audio ref={audioRef} src='/songs/beat-alarm.mp3' />
       <div>
+        <button onClick={() => stopSound()}>BOTao</button>
+
         <BreakControl
           isActive={isActive}
           setIsActive={setIsActive}
           time={time}
           setTime={setTime}
+          playSong={playSound}
+          setPlaySong={setPlaySong}
         />
         <span className={root}>{`${minutes}:${seconds()}`}</span>
         <TimerControl
@@ -63,6 +69,8 @@ const Timer = (props) => {
           setIsActive={setIsActive}
           time={time}
           setTime={setTime}
+          playSong={playSound}
+          setPlaySong={setPlaySong}
         />
       </div>
     </>
