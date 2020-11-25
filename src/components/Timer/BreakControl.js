@@ -32,7 +32,7 @@ const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
           Short Break
         </Button>
         <Button
-          onClick={() => setIsActive(!isActive)}
+          onClick={() => handleBreak(900)}
           className={m}
           variant='contained'
         >
