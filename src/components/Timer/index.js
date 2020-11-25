@@ -12,6 +12,12 @@ const Timer = (props) => {
   const { root } = useTimerStyles()
   const [time, setTime] = useState(1500)
   const [isActive, setIsActive] = useState(false)
+  const minutes = Math.floor(time / 60) % 60
+
+  const seconds = () => {
+    const formatedSeconds = `0${time % 60}`
+    return time % 60 < 10 ? formatedSeconds : time % 60
+  }
 
   useEffect(() => {
     let interval = null
@@ -25,12 +31,10 @@ const Timer = (props) => {
     return () => clearInterval(interval)
   }, [isActive, time])
 
-  const seconds = time % 60
-  const minutes = Math.floor(time / 60) % 60
   return (
     <>
       <div>
-        <span className={root}>{`${minutes}:${seconds}`}</span>
+        <span className={root}>{`${minutes}:${seconds()}`}</span>
         <TimerControl
           isActive={isActive}
           setIsActive={setIsActive}
