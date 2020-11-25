@@ -1,7 +1,7 @@
 import React from 'react'
 import { Toolbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { PlayArrow, Stop, Restore, Pause } from '@material-ui/icons'
+import { PlayArrow, Restore, Pause } from '@material-ui/icons'
 
 const useTimerControlStyles = makeStyles((theme) => ({
   root: {},
@@ -19,7 +19,6 @@ const TimerControl = ({ isActive, setIsActive, time, setTime }) => {
   const { root, buttonSecondary, controllers } = useTimerControlStyles()
   return (
     <>
-      <div>TimerControl</div>
       <Toolbar variant='dense' className={root}>
         <Button
           onClick={() => setIsActive(true)}

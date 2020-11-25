@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
+import BreakControl from './BreakControl'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,12 @@ const Timer = (props) => {
   return (
     <>
       <div>
+        <BreakControl
+          isActive={isActive}
+          setIsActive={setIsActive}
+          time={time}
+          setTime={setTime}
+        />
         <span className={root}>{`${minutes}:${seconds()}`}</span>
         <TimerControl
           isActive={isActive}
