@@ -15,13 +15,17 @@ const useTimerControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const TimerControl = (props) => {
+const TimerControl = ({ isActive, setIsActive }) => {
   const { root, buttonSecondary, controllers } = useTimerControlStyles()
   return (
     <>
       <div>TimerControl</div>
       <Toolbar variant='dense' className={root}>
-        <Button variant='contained' className={buttonSecondary}>
+        <Button
+          onClick={() => setIsActive(true)}
+          variant='contained'
+          className={buttonSecondary}
+        >
           <PlayArrow />
           Start
         </Button>

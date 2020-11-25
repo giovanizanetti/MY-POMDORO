@@ -17,7 +17,7 @@ const Timer = (props) => {
     let interval = null
     if (isActive) {
       interval = setInterval(() => {
-        setSeconds((seconds) => seconds + 1)
+        setSeconds((seconds) => seconds - 1)
       }, 1000)
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval)
