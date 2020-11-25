@@ -40,10 +40,7 @@ const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
           Long Break
         </Button>
         <Button
-          onClick={() => {
-            setIsActive(false)
-            setTime(1500)
-          }}
+          onClick={() => handleBreak(2700)}
           className={m}
           variant='contained'
         >
