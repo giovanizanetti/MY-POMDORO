@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
@@ -23,10 +23,10 @@ const Timer = () => {
     return time % 60 < 10 ? formatedSeconds : time % 60
   }
 
-  const playSound = () => {
+  const playSound = useCallback(() => {
     audioRef.current.play()
     setTimeout(() => stopSound(), 20000)
-  }
+  }, [])
 
   const stopSound = () => {
     audioRef.current.pause()
