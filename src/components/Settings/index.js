@@ -1,20 +1,50 @@
 import { useState } from 'react'
-import { Modal } from '@material-ui/core'
+import {
+  Modal,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  DialogActions,
+  Typography,
+} from '@material-ui/core'
 
 const Settings = () => {
   const [openModal, setOpenModal] = useState(false)
 
   return (
     <>
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby='simple-modal-title'
-        aria-describedby='simple-modal-description'
+      <Button
+        variant='outlined'
+        color='primary'
+        onClick={() => setOpenModal(true)}
       >
-        <div>HI I am a MOdal</div>
-      </Modal>
-      <button onClick={() => setOpenModal(true)}></button>
+        Open dialog
+      </Button>
+      <Dialog
+        onClose={() => setOpenModal(false)}
+        aria-labelledby='customized-dialog-title'
+        open={openModal}
+      >
+        <DialogTitle
+          id='customized-dialog-title'
+          onClose={() => setOpenModal(false)}
+        >
+          Settingss
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
+            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
+            dui. Donec ullamcorper nulla non metus auctor fringilla.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={() => setOpenModal(false)} color='primary'>
+            Save changes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }

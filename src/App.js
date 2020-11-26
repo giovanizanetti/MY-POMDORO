@@ -7,10 +7,10 @@ function App() {
   return (
     <div className='App'>
       <Navigation />
-      {/* <Settings /> */}
-      <header className='App-header'>
+      <Settings />
+      {/* <header className='App-header'>
         <Timer />
-      </header>
+      </header> */}
     </div>
   )
 }
