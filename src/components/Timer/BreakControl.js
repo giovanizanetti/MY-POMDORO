@@ -14,7 +14,7 @@ const useBreakControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
+const BreakControl = ({ setIsActive, setTime }) => {
   const { root, m, mr } = useBreakControlStyles()
 
   const handleBreak = (breakLengh) => {

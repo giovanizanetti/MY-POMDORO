@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
@@ -55,7 +55,6 @@ const Timer = () => {
     let interval = null
     if (time === 0) {
       setIsActive(false)
-
       playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
     if (isActive) {
@@ -68,7 +67,6 @@ const Timer = () => {
 
     return () => clearInterval(interval)
   }, [isActive, time, playSong])
-  document.title = `${minutes}:${seconds()}`
   return (
     <>
       <audio
@@ -77,14 +75,7 @@ const Timer = () => {
         src='/songs/beat-alarm.mp3'
       />
       <div>
-        <BreakControl
-          isActive={isActive}
-          setIsActive={setIsActive}
-          time={time}
-          setTime={setTime}
-          // playSong={playSound}
-          setPlaySong={setPlaySong}
-        />
+        <BreakControl setIsActive={setIsActive} setTime={setTime} />
         {isSongPlaying && (
           <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>
             <Icon color='secondary'>music_off</Icon>
@@ -96,10 +87,7 @@ const Timer = () => {
         <TimerControl
           isActive={isActive}
           setIsActive={setIsActive}
-          time={time}
           setTime={setTime}
-          // playSong={playSound}
-          setPlaySong={setPlaySong}
         />
       </div>
     </>

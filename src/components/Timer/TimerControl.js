@@ -18,7 +18,7 @@ const useTimerControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const TimerControl = ({ isActive, setIsActive, time, setTime }) => {
+const TimerControl = ({ isActive, setIsActive, setTime }) => {
   const { root, buttonSecondary, controllers, mr } = useTimerControlStyles()
   return (
     <>
