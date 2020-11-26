@@ -27,7 +27,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
       <Toolbar variant='dense' className={root}>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(5)}
+          onClick={() => handleBreak(300)}
           variant='contained'
           className={m}
         >
