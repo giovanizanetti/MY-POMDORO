@@ -21,19 +21,15 @@ const Timer = () => {
   const [isSongPlaying, setIsSongPlaying] = useState(false)
   const minutes = Math.floor(time / 60) % 60
   const audioRef = useRef()
-
-  const seconds = () => {
-    const formatedSeconds = `0${time % 60}`
-    return time % 60 < 10 ? formatedSeconds : time % 60
-  }
-
-  const countDown = `${minutes}:${seconds()}`
+  const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
+  const countDown = `${minutes}:${seconds}`
 
   document.title = countDown
 
   // Song play
   useEffect(() => {
-    setIsSongPlaying(false)
+    setIsSongPlaying(false) // initial render do not play
+
     const stopSound = () => {
       audioRef.current.pause()
       audioRef.current.currentTime = 0
@@ -67,6 +63,7 @@ const Timer = () => {
 
     return () => clearInterval(interval)
   }, [isActive, time, playSong])
+
   return (
     <>
       <audio
