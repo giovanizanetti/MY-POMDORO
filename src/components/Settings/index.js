@@ -10,9 +10,11 @@ import {
   IconButton,
   FormControl,
   FormControlLabel,
-  FormLabel,
   FormGroup,
   Switch,
+  MenuItem,
+  InputLabel,
+  Select,
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -23,11 +25,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }))
 
 const Settings = () => {
   const [open, setOpen] = useState(false)
-  const { modalHeader } = useStyles()
+  const { modalHeader, button, formControl } = useStyles()
 
   return (
     <div>
@@ -42,7 +52,6 @@ const Settings = () => {
         <DialogTitle
           id='customized-dialog-title'
           onClose={() => setOpen(false)}
-          className={useStyles.customizedButton}
         >
           <div className={modalHeader}>
             Settings
@@ -89,6 +98,30 @@ const Settings = () => {
                 }
                 label='Alarm'
               />
+
+              <FormControl className={formControl}>
+                <InputLabel id='demo-controlled-open-select-label'>
+                  Select a sound for the alarm
+                </InputLabel>
+                <Select
+                  labelId='demo-controlled-open-select-label'
+                  id='demo-controlled-open-select'
+                  open={false}
+                  // open={open}
+                  // onClose={handleClose}
+                  // onOpen={handleOpen}
+                  // value={age}
+                  // onChange={handleChange}
+                  value='10'
+                >
+                  <MenuItem value=''>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
             </FormGroup>
           </FormControl>
         </DialogContent>
