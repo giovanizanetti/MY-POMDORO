@@ -33,8 +33,8 @@ const Timer = () => {
 
   // Song play
   useEffect(() => {
+    setIsSongPlaying(false)
     const stopSound = () => {
-      // setIsSongPlaying(false)
       audioRef.current.pause()
       audioRef.current.currentTime = 0
     }
