@@ -3,9 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
-import { MusicOff } from '@material-ui/icons'
-
-//volume_off
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +20,6 @@ const Timer = () => {
   const [playSong, setPlaySong] = useState(true)
   const [isSongPlaying, setIsSongPlaying] = useState(false)
   const minutes = Math.floor(time / 60) % 60
-  // const audio = new Audio('/songs/beat-alarm.mp3')
   const audioRef = useRef()
 
   const seconds = () => {
@@ -31,25 +27,36 @@ const Timer = () => {
     return time % 60 < 10 ? formatedSeconds : time % 60
   }
 
-  const playSound = useCallback(() => {
-    setIsSongPlaying(true)
-    audioRef.current.play()
-    setTimeout(() => {
+  const countDown = `${minutes}:${seconds()}`
+
+  document.title = countDown
+
+  // Song play
+  useEffect(() => {
+    const stopSound = () => {
+      // setIsSongPlaying(false)
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
+
+    if (isSongPlaying) {
+      audioRef.current.play()
+      setTimeout(() => {
+        stopSound()
+        setIsSongPlaying(false)
+      }, 20000)
+    } else {
       stopSound()
-      setIsSongPlaying(false)
-    }, 20000)
-  }, [])
+    }
+  }, [isSongPlaying])
 
-  const stopSound = () => {
-    setIsSongPlaying(false)
-    audioRef.current.pause()
-  }
-
+  // Countdown timer
   useEffect(() => {
     let interval = null
     if (time === 0) {
       setIsActive(false)
-      playSong && playSound() // play sound if is in the user's settings
+
+      playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
     if (isActive) {
       interval = setInterval(() => {
@@ -60,34 +67,38 @@ const Timer = () => {
     }
 
     return () => clearInterval(interval)
-  }, [isActive, time, playSound, playSong])
-
+  }, [isActive, time, playSong])
+  document.title = `${minutes}:${seconds()}`
   return (
     <>
-      <audio ref={audioRef} src='/songs/beat-alarm.mp3' />
+      <audio
+        disableRemotePlayback={true}
+        ref={audioRef}
+        src='/songs/beat-alarm.mp3'
+      />
       <div>
         <BreakControl
           isActive={isActive}
           setIsActive={setIsActive}
           time={time}
           setTime={setTime}
-          playSong={playSound}
+          // playSong={playSound}
           setPlaySong={setPlaySong}
         />
         {isSongPlaying && (
-          <IconButton className={ml} onClick={() => stopSound()}>
+          <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>
             <Icon color='secondary'>music_off</Icon>
           </IconButton>
         )}
 
-        <span className={root}>{`${minutes}:${seconds()}`}</span>
+        <span className={root}>{countDown}</span>
 
         <TimerControl
           isActive={isActive}
           setIsActive={setIsActive}
           time={time}
           setTime={setTime}
-          playSong={playSound}
+          // playSong={playSound}
           setPlaySong={setPlaySong}
         />
       </div>

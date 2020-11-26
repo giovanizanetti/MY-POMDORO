@@ -3,7 +3,9 @@ import { Toolbar, Button, Icon } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useBreakControlStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    whiteSpace: 'nowrap',
+  },
   m: {
     margin: theme.spacing(1),
   },
@@ -24,6 +26,7 @@ const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
     <>
       <Toolbar variant='dense' className={root}>
         <Button
+          fullWidth={true}
           onClick={() => handleBreak(5)}
           variant='contained'
           className={m}
@@ -32,6 +35,7 @@ const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
           Short Break
         </Button>
         <Button
+          fullWidth={true}
           onClick={() => handleBreak(900)}
           className={m}
           variant='contained'
@@ -40,6 +44,7 @@ const BreakControl = ({ isActive, setIsActive, time, setTime }) => {
           Long Break
         </Button>
         <Button
+          fullWidth={true}
           onClick={() => handleBreak(2700)}
           className={m}
           variant='contained'
