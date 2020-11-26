@@ -8,10 +8,14 @@ import {
   Typography,
   Icon,
   IconButton,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  FormGroup,
+  Switch,
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { FullscreenExit } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   modalHeader: {
@@ -53,16 +57,40 @@ const Settings = () => {
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
             ac consectetur ac, vestibulum at eros.
           </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+          <FormControl component='fieldset'>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Switch
+                    // checked={state.gilad}
+                    // onChange={handleChange}
+                    name='Timer indication in title'
+                  />
+                }
+                label='Timer indication in title'
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    // checked={state.jason}
+                    // onChange={handleChange}
+                    name='Browser notifications'
+                  />
+                }
+                label='Browser notifications'
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    // checked={state.antoine}
+                    // onChange={handleChange}
+                    name='Alarm'
+                  />
+                }
+                label='Alarm'
+              />
+            </FormGroup>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={() => setOpen(false)} color='primary'>
