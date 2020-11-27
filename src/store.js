@@ -3,14 +3,19 @@ import Reducer from './reducers/settings'
 
 const initialState = {
   playSong: true,
-  sendBrownserNotifications: true,
+  alarmSong: '',
+  sendNotifications: true,
   pomodoroLength: 1500,
   shortBreak: 300,
-  longBreak: 9000,
-  lunchBreak: 2600,
-  showBreakMenu: true,
-
-  posts: [],
+  longBreakLength: 9000,
+  lunchBreakLength: 2600,
+  displayBreakMenu: true,
+  automaticBreak: true,
+  automaticPomodoro: true,
+  pomodoroCount: 0,
+  pomodoroDailyTarget: 0,
+  pomodoroWeeklyTarget: 0,
+  displayDocTitleTimer: true,
   error: null,
 }
 
