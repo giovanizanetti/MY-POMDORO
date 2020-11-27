@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import { Context } from '../../store'
+
 import {
   Dialog,
   DialogTitle,
@@ -17,6 +18,24 @@ import {
   InputLabel,
   Select,
 } from '@material-ui/core'
+
+import {
+  SET_PLAY_SONG,
+  SET_ALARM_SONG,
+  SET_SEND_NOTIFICATIONS,
+  SET_POMODORO_LENGTH,
+  SET_SHORT_BREAK_LENGTH,
+  SET_LONG_BREAK_LENGTH,
+  SET_LUNCH_BREAK_LENGTH,
+  SET_DISPLAY_BREAK_MENU,
+  SET_POMODORO_COUNT,
+  SET_POMODORO_DAILY_TARGET,
+  SET_POMODORO_WEEKLY_TARGET,
+  SET_DISPLAY_DOC_TITLE_TIMER,
+  // SET_ERROR,
+  SET_AUTOMATIC_BREAK,
+  SET_AUTOMATIC_POMODORO,
+} from '../../types'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -75,18 +94,20 @@ const Settings = () => {
               <FormControlLabel
                 control={
                   <Switch
-                    // checked={state.gilad}
-                    // onChange={handleChange}
-                    name='Timer indication in title'
+                    checked={state.displayDocTitleTimer}
+                    onChange={() =>
+                      dispatch({ type: SET_DISPLAY_DOC_TITLE_TIMER })
+                    }
+                    name='Timer indication on the browser title'
                   />
                 }
-                label='Timer indication in title'
+                label='Timer indication on the browser title'
               />
               <FormControlLabel
                 control={
                   <Switch
-                    // checked={state.jason}
-                    // onChange={handleChange}
+                    checked={state.sendNotifications}
+                    onChange={() => dispatch({ type: SET_SEND_NOTIFICATIONS })}
                     name='Browser notifications'
                   />
                 }

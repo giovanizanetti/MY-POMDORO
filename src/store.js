@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react'
 import Reducer from './reducers/settings'
 
-const initialState = {
+let initialState = {
   playSong: true,
   alarmSong: '',
   sendNotifications: true,
