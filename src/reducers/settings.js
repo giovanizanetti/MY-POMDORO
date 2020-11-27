@@ -1,4 +1,4 @@
-export {
+import {
   SET_PLAY_SONG,
   SET_ALARM_SONG,
   SET_SEND_NOTIFICATIONS,
@@ -19,50 +19,37 @@ export {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   switch (action.type) {
-    // eslint-disable-next-line no-undef
     case SET_PLAY_SONG:
-      return (state.playSong = !state.playSong)
-    // eslint-disable-next-line no-undef
+      return { playSong: !state.playSong }
     case SET_ALARM_SONG:
-      return (state.alarmSong = !state.alarmSong)
-    // eslint-disable-next-line no-undef
+      return { alarmSong: !state.alarmSong }
     case SET_SEND_NOTIFICATIONS:
-      return (state.sendNotifications = !state.sendNotifications)
-    // eslint-disable-next-line no-undef
+      return { sendNotifications: !state.sendNotifications }
     case SET_POMODORO_LENGTH:
-      return (state.pomodoroLength = action.payload)
-    // eslint-disable-next-line no-undef
+      return { pomodoroLength: action.payload }
     case SET_SHORT_BREAK_LENGTH:
-      return (state.shorBreakLength = action.payload)
-    // eslint-disable-next-line no-undef
+      return { shorBreakLength: action.payload }
     case SET_LONG_BREAK_LENGTH:
-      return (state.shorBreakLength = action.payload)
-    // eslint-disable-next-line no-undef
+      return { shorBreakLength: action.payload }
     case SET_LUNCH_BREAK_LENGTH:
-      return (state.lunchBreakLength = action.payload)
-    // eslint-disable-next-line no-undef
+      return { lunchBreakLength: action.payload }
     case SET_DISPLAY_BREAK_MENU:
-      return (state.displayBreakMenu = !state.displayBreakMenu)
-    // eslint-disable-next-line no-undef
+      return { displayBreakMenu: !state.displayBreakMenu }
     case SET_POMODORO_COUNT:
-      return (state.pomodoroCount = action.payload)
-    // eslint-disable-next-line no-undef
+      return { pomodoroCount: action.payload }
     case SET_POMODORO_DAILY_TARGET:
       // 1425secs = 57 pomodoros (maximum possible in one day)
       if (action.payload > 1425) throw new Error('Impossible target to reach!')
-      return (state.pomodoroDailyTarget = action.payload)
-    // eslint-disable-next-line no-undef
+      return { pomodoroDailyTarget: action.payload }
     case SET_POMODORO_WEEKLY_TARGET:
       // 24192secs = 403 pomodoros (maximum possible in one week)
       if (action.payload > 24192) throw new Error('Impossible target to reach!')
-      return (state.pomodoroWeeklyTarget = action.payload)
-    // eslint-disable-next-line no-undef
+      return { pomodoroWeeklyTarget: action.payload }
     case SET_DISPLAY_DOC_TITLE_TIMER:
-      return (state.displayDocTitleTimer = !state.displayDocTitleTimer)
-    // eslint-disable-next-line no-undef
+      return { displayDocTitleTimer: !state.displayDocTitleTimer }
+    // return console.log(state.displayDocTitleTimer)
     case SET_AUTOMATIC_BREAK:
       return (state.automaticBreak = !state.automaticBreak)
-    // eslint-disable-next-line no-undef
     case SET_AUTOMATIC_POMODORO:
       return (state.automaticPomodoro = !state.automaticPomodoro)
     default:
