@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Settings = () => {
   const [state, dispatch] = useContext(Context)
-  console.log(state)
 
   const [open, setOpen] = useState(false)
   const { modalHeader, button, formControl } = useStyles()
@@ -116,8 +115,8 @@ const Settings = () => {
               <FormControlLabel
                 control={
                   <Switch
-                    // checked={state.antoine}
-                    // onChange={handleChange}
+                    checked={state.playSong}
+                    onChange={() => dispatch({ type: SET_PLAY_SONG })}
                     name='Alarm'
                   />
                 }

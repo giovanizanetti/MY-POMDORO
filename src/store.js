@@ -2,20 +2,20 @@ import React, { createContext, useReducer } from 'react'
 import Reducer from './reducers/settings'
 
 let initialState = {
-  playSong: true,
-  alarmSong: '',
-  sendNotifications: true,
-  pomodoroLength: 1500,
-  shortBreak: 300,
-  longBreakLength: 9000,
-  lunchBreakLength: 2600,
-  displayBreakMenu: true,
   automaticBreak: true,
   automaticPomodoro: true,
+  alarmSong: '',
+  displayBreakMenu: true,
+  displayDocTitleTimer: true,
+  longBreakLength: 9000,
+  lunchBreakLength: 2600,
+  playSong: true,
+  pomodoroLength: 1500,
   pomodoroCount: 0,
   pomodoroDailyTarget: 0,
   pomodoroWeeklyTarget: 0,
-  displayDocTitleTimer: true,
+  sendNotifications: true,
+  shortBreak: 300,
   error: null,
 }
 
