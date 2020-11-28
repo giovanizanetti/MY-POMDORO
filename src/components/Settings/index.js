@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import { Context } from '../../store'
+import SelectSong from './SelectSong'
 
 import {
   Dialog,
@@ -59,6 +60,7 @@ const Settings = () => {
   const [state, dispatch] = useContext(Context)
 
   const [open, setOpen] = useState(false)
+  // const [selectOpen, setSelectOpen] = useState(false)
   const { modalHeader, button, formControl } = useStyles()
 
   return (
@@ -122,30 +124,7 @@ const Settings = () => {
                 }
                 label='Alarm'
               />
-
-              <FormControl className={formControl}>
-                <InputLabel id='demo-controlled-open-select-label'>
-                  Select a sound for the alarm
-                </InputLabel>
-                <Select
-                  labelId='demo-controlled-open-select-label'
-                  id='demo-controlled-open-select'
-                  open={false}
-                  // open={open}
-                  // onClose={handleClose}
-                  // onOpen={handleOpen}
-                  // value={age}
-                  // onChange={handleChange}
-                  value='10'
-                >
-                  <MenuItem value=''>
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
+              <SelectSong />
             </FormGroup>
           </FormControl>
         </DialogContent>
