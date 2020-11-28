@@ -20,8 +20,8 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
         [fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role='presentation'
-      onClick={() => toggleSideBar()}
-      onKeyDown={() => toggleSideBar()}
+      // onClick={(e) => console.log(e.target.key)}
+      // onKeyDown={(e) => console.log(e.target.value)}
     >
       <List>
         <ListItem button>My Pomodoro App</ListItem>
@@ -35,8 +35,14 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
           { name: 'Log', icon: 'history' },
           { name: 'FAQ', icon: 'help_outline' },
         ].map((item) => (
-          <ListItem button key={item.name}>
-            <ListItemIcon childre=''>
+          <ListItem
+            id={item.name}
+            onClick={(id) => console.log(id)}
+            button
+            key={item.name}
+            value={item.name}
+          >
+            <ListItemIcon>
               <Icon>{item.icon}</Icon>
             </ListItemIcon>
             <ListItemText primary={item.name} />

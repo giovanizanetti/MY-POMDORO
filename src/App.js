@@ -9,9 +9,9 @@ function App() {
     <div className='App'>
       <StoreProvider>
         <Navigation />
-        {/* <header className='App-header'>
-        <Timer />
-      </header> */}
+        <header className='App-header'>
+          <Timer />
+        </header>
         <Settings />
       </StoreProvider>
 

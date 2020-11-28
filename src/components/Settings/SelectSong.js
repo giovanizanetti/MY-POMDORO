@@ -20,19 +20,19 @@ const SelectSong = () => {
 
   return (
     <FormControl className={formControl}>
-      <InputLabel id='demo-controlled-open-select-label'>
+      <InputLabel id='select_song_label'>
         Select a sound for the alarm
       </InputLabel>
       <Select
-        labelId='demo-controlled-open-select-label'
-        id='demo-controlled-open-select'
+        labelId='select_song_label'
+        id='select_song'
         open={open}
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         onChange={(e) =>
           dispatch({ type: SET_ALARM_SONG, payload: e.target.value })
         }
-        value={state.alarmSong} // read global state to get this value
+        value={state.alarmSong}
       >
         {songList.map((song) => (
           <MenuItem key={song.name} value={song.path}>

@@ -65,9 +65,9 @@ const Settings = () => {
 
   return (
     <div>
-      <Button variant='outlined' color='primary' onClick={() => setOpen(true)}>
+      {/* <Button variant='outlined' color='primary' onClick={() => setOpen(true)}>
         Open dialog
-      </Button>
+      </Button> */}
       <Dialog
         onClose={() => setOpen(false)}
         aria-labelledby='customized-dialog-title'
