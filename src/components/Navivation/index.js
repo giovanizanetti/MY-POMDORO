@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core'
 import { useNavStyles } from './style'
 import MenuIcon from '@material-ui/icons/Menu'
 import SideBar from './SideBar'
+import Settings from '../Settings'
 
 const Navigation = () => {
   const { root, alignNavItems, logo, menuButton } = useNavStyles()
@@ -29,6 +30,7 @@ const Navigation = () => {
         </Toolbar>
       </AppBar>
       <SideBar isVisible={isVisible} toggleSideBar={toggleSideBar} />
+      <Settings />
     </>
   )
 }
