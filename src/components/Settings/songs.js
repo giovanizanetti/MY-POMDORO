@@ -1,21 +1,16 @@
-const alarmClock = '/songs/alarm_clock.mp3'
-const alarmNotLoud = '/songs/alarm_not_too_loud.mp3'
-const beatAlarm = '/songs/beat-alarm.mp3'
-const guitarAlarm = '/songs/guitar_alarm.mp3'
-const dickoryDockNotification = '/songs/hickory_dickory_dock-notification.mp3'
-const electro = '/songs/pruzhina_electro.mp3'
-const samsungS1 = '/songs/samsung_s1.mp3'
-const shorty = '/songs/shorty.mp3'
-const zvukBudilnika = '/songs/zvuk_budilnika.mp3'
-
-export const songList = [
-  alarmClock,
-  alarmNotLoud,
-  beatAlarm,
-  guitarAlarm,
-  dickoryDockNotification,
-  electro,
-  samsungS1,
-  shorty,
-  zvukBudilnika,
+const songList = [
+  { name: 'alarmClock', path: '/songs/alarm_clock.mp3' },
+  { name: 'alarmNotLoud', path: '/songs/alarm_not_too_loud.mp3' },
+  { name: 'beatAlarm', path: '/songs/beat-alarm.mp3' },
+  { name: 'guitarAlarm', path: '/songs/guitar_alarm.mp3' },
+  {
+    name: 'dickoryDockNotification',
+    path: '/songs/hickory_dickory_dock-notification.mp3',
+  },
+  { name: 'electro', path: '/songs/pruzhina_electro.mp3' },
+  { name: 'samsungS1', path: '/songs/samsung_s1.mp3' },
+  { name: 'shorty', path: '/songs/shorty.mp3' },
+  { name: 'zvukBudilnika', path: '/songs/zvuk_budilnika.mp3' },
 ]
+
+export default songList
