@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { songList } from './songs'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -27,14 +28,22 @@ const SelectSong = () => {
         onOpen={() => setOpen(true)}
         // value={age}
         // onChange={handleChange}
-        value='10'
+        value={songList[1]}
       >
-        <MenuItem value=''>
+        {songList.map((song) => {
+          console.log(Object.getOwnPropertyNames(song))
+          return (
+            <MenuItem key={song} value={song}>
+              {song}
+            </MenuItem>
+          )
+        })}
+        {/* <MenuItem value=''>
           <em>None</em>
         </MenuItem>
         <MenuItem value={10}>Ten</MenuItem>
         <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem> */}
       </Select>
     </FormControl>
   )

@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Context } from '../../store'
+import { Context } from '../../StoreProvider/index'
 import SelectSong from './SelectSong'
 
 import {

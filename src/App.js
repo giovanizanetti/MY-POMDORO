@@ -2,18 +2,18 @@ import './App.css'
 import Navigation from './components/Navivation'
 import Timer from './components/Timer'
 import Settings from './components/Settings'
-import Store from './store'
+import StoreProvider from './StoreProvider/index'
 
 function App() {
   return (
     <div className='App'>
-      <Store>
+      <StoreProvider>
         <Navigation />
         {/* <header className='App-header'>
         <Timer />
       </header> */}
         <Settings />
-      </Store>
+      </StoreProvider>
 
       {/* <header className='App-header'>
         <Timer />

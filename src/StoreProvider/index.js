@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react'
-import Reducer from './reducers/settings'
+import Reducer from '../reducers/settings'
 
 let initialState = {
   automaticBreak: true,
