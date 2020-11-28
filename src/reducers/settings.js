@@ -22,7 +22,7 @@ export default (state, action) => {
     case SET_PLAY_SONG:
       return { ...state, playSong: !state.playSong }
     case SET_ALARM_SONG:
-      return { ...state, alarmSong: !state.alarmSong }
+      return { ...state, alarmSong: action.payload }
     case SET_SEND_NOTIFICATIONS:
       return { ...state, ...state, sendNotifications: !state.sendNotifications }
     case SET_POMODORO_LENGTH:

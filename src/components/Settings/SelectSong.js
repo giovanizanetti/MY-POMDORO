@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
-import { songList } from './songs'
-
+import { Context } from '../../StoreProvider/index'
+import { SET_ALARM_SONG } from '../../types'
 import { makeStyles } from '@material-ui/core/styles'
+import songList from './songs'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -13,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SelectSong = () => {
   const { formControl } = useStyles()
+
+  const [state, dispatch] = useContext(Context)
   const [open, setOpen] = useState(false)
 
   return (
@@ -26,24 +29,16 @@ const SelectSong = () => {
         open={open}
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
-        // value={age}
-        // onChange={handleChange}
-        value={songList[1]}
+        onChange={(e) =>
+          dispatch({ type: SET_ALARM_SONG, payload: e.target.value })
+        }
+        value={state.alarmSong} // read global state to get this value
       >
-        {songList.map((song) => {
-          console.log(Object.getOwnPropertyNames(song))
-          return (
-            <MenuItem key={song} value={song}>
-              {song}
-            </MenuItem>
-          )
-        })}
-        {/* <MenuItem value=''>
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem> */}
+        {songList.map((song) => (
+          <MenuItem key={song.name} value={song.path}>
+            {song.name}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   )

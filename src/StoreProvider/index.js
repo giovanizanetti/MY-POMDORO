@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from 'react'
 import Reducer from '../reducers/settings'
+import songList from '../components/Settings/songs'
 
 let initialState = {
   automaticBreak: true,
   automaticPomodoro: true,
-  alarmSong: '',
+  alarmSong: '/songs/alarm_not_too_loud.mp3',
   displayBreakMenu: true,
   displayDocTitleTimer: true,
   longBreakLength: 9000,
