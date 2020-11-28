@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Context } from '../../StoreProvider/index'
+import { Context } from '../../../StoreProvider/index'
 import SelectSong from './SelectSong'
 
 import {
@@ -33,10 +33,11 @@ import {
   SET_POMODORO_DAILY_TARGET,
   SET_POMODORO_WEEKLY_TARGET,
   SET_DISPLAY_DOC_TITLE_TIMER,
+  SET_OPEN_SETTINGS,
   // SET_ERROR,
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
-} from '../../types'
+} from '../../../types'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -59,27 +60,22 @@ const useStyles = makeStyles((theme) => ({
 const Settings = () => {
   const [state, dispatch] = useContext(Context)
 
-  const [open, setOpen] = useState(false)
-  // const [selectOpen, setSelectOpen] = useState(false)
   const { modalHeader, button, formControl } = useStyles()
 
   return (
     <div>
-      <Button variant='outlined' color='primary' onClick={() => setOpen(true)}>
-        Open dialog
-      </Button>
       <Dialog
-        onClose={() => setOpen(false)}
+        onClose={() => dispatch({ type: SET_OPEN_SETTINGS })}
         aria-labelledby='customized-dialog-title'
-        open={open}
+        open={state.openSettings}
       >
         <DialogTitle
           id='customized-dialog-title'
-          onClose={() => setOpen(false)}
+          onClose={() => dispatch({ type: SET_OPEN_SETTINGS })}
         >
           <div className={modalHeader}>
             Settings
-            <IconButton onClick={() => setOpen(false)}>
+            <IconButton onClick={() => dispatch({ type: SET_OPEN_SETTINGS })}>
               <Icon>close</Icon>
             </IconButton>
           </div>
@@ -129,7 +125,11 @@ const Settings = () => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={() => setOpen(false)} color='primary'>
+          <Button
+            autoFocus
+            onClick={() => dispatch({ type: SET_OPEN_SETTINGS })}
+            color='primary'
+          >
             Save changes
           </Button>
         </DialogActions>

@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core'
 import { useNavStyles } from './style'
 import MenuIcon from '@material-ui/icons/Menu'
 import SideBar from './SideBar'
-import Settings from '../Settings'
+// import Settings from './Settings'
+// import { Context } from '../../StoreProvider'
 
 const Navigation = () => {
   const { root, alignNavItems, logo, menuButton } = useNavStyles()
+  // const [state] = useContext(Context)
 
   const [isVisible, setIsVisible] = useState(false)
   const toggleSideBar = () => setIsVisible(!isVisible)
@@ -30,7 +32,7 @@ const Navigation = () => {
         </Toolbar>
       </AppBar>
       <SideBar isVisible={isVisible} toggleSideBar={toggleSideBar} />
-      <Settings />
+      {/* {state.openSettings && <Settings />} */}
     </>
   )
 }

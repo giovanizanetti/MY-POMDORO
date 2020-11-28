@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react'
 import Reducer from '../reducers/settings'
-import songList from '../components/Settings/songs'
+import songList from '../components/Navivation/Settings/songs'
 
 let initialState = {
   automaticBreak: true,

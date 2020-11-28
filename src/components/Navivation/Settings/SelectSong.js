@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
-import { Context } from '../../StoreProvider/index'
-import { SET_ALARM_SONG } from '../../types'
+import { Context } from '../../../StoreProvider/index'
+import { SET_ALARM_SONG } from '../../../types'
 import { makeStyles } from '@material-ui/core/styles'
 import songList from './songs'
 
