@@ -16,7 +16,7 @@ let initialState = {
   pomodoroDailyTarget: 0,
   pomodoroWeeklyTarget: 0,
   sendNotifications: true,
-  shortBreak: 300,
+  shortBreakLength: 300,
   openSettings: false,
   error: null,
 }

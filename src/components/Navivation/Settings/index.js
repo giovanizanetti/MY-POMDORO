@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
-import { Context } from '../../../StoreProvider/index'
+import { Context } from '../../../StoreProvider/index.js'
 import SelectSong from './SelectSong'
+import SelectShortBreak from './SelectShortBreak'
 
 import {
   Dialog,
@@ -22,21 +23,9 @@ import {
 
 import {
   SET_PLAY_SONG,
-  SET_ALARM_SONG,
   SET_SEND_NOTIFICATIONS,
-  SET_POMODORO_LENGTH,
-  SET_SHORT_BREAK_LENGTH,
-  SET_LONG_BREAK_LENGTH,
-  SET_LUNCH_BREAK_LENGTH,
-  SET_DISPLAY_BREAK_MENU,
-  SET_POMODORO_COUNT,
-  SET_POMODORO_DAILY_TARGET,
-  SET_POMODORO_WEEKLY_TARGET,
   SET_DISPLAY_DOC_TITLE_TIMER,
   SET_OPEN_SETTINGS,
-  // SET_ERROR,
-  SET_AUTOMATIC_BREAK,
-  SET_AUTOMATIC_POMODORO,
 } from '../../../types'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -81,11 +70,7 @@ const Settings = () => {
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </Typography>
+          {/* <Typography gutterBottom>Settings</Typography> */}
           <FormControl component='fieldset'>
             <FormGroup>
               <FormControlLabel
@@ -121,6 +106,7 @@ const Settings = () => {
                 label='Alarm'
               />
               <SelectSong />
+              <SelectShortBreak />
             </FormGroup>
           </FormControl>
         </DialogContent>
