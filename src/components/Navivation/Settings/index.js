@@ -4,6 +4,7 @@ import SelectSong from './SelectSong'
 import SelectShortBreak from './SelectShortBreak'
 import SelectLongBreak from './SelectLongBreak'
 import SelectLunchBreak from './SelectLunchBreak'
+import SelectPomodoroLength from './SelectPomodoroLength'
 
 import {
   Dialog,
@@ -28,6 +29,9 @@ import {
   SET_SEND_NOTIFICATIONS,
   SET_DISPLAY_DOC_TITLE_TIMER,
   SET_OPEN_SETTINGS,
+  SET_AUTOMATIC_BREAK,
+  SET_AUTOMATIC_POMODORO,
+  SET_DISPLAY_BREAK_MENU,
 } from '../../../types'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -105,12 +109,43 @@ const Settings = () => {
                     name='Alarm'
                   />
                 }
-                label='Alarm'
+                label='Alarm Song'
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={state.automaticBreak}
+                    onChange={() => dispatch({ type: SET_AUTOMATIC_BREAK })}
+                    name='Automatic break'
+                  />
+                }
+                label='Automatic starts a new break when pomodoro is over'
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={state.automaticPomodoro}
+                    onChange={() => dispatch({ type: SET_AUTOMATIC_POMODORO })}
+                    name='Automatic break'
+                  />
+                }
+                label='Automatic starts new pomodoro when break is over'
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={state.displayBreakMenu}
+                    onChange={() => dispatch({ type: SET_DISPLAY_BREAK_MENU })}
+                    name='Automatic break'
+                  />
+                }
+                label='Enable breaks menu'
               />
               <SelectSong />
               <SelectShortBreak />
               <SelectLongBreak />
               <SelectLunchBreak />
+              <SelectPomodoroLength />
             </FormGroup>
           </FormControl>
         </DialogContent>

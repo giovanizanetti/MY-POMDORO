@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
+import { Context } from '../../StoreProvider/index'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +15,7 @@ const useTimerStyles = makeStyles((theme) => ({
 }))
 
 const Timer = () => {
+  const [state] = useContext(Context)
   const { root, ml } = useTimerStyles()
   const [time, setTime] = useState(1500)
   const [isActive, setIsActive] = useState(false)
@@ -72,7 +74,9 @@ const Timer = () => {
         src='/songs/beat-alarm.mp3'
       />
       <div>
-        <BreakControl setIsActive={setIsActive} setTime={setTime} />
+        {state.displayBreakMenu && (
+          <BreakControl setIsActive={setIsActive} setTime={setTime} />
+        )}
         {isSongPlaying && (
           <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>
             <Icon color='secondary'>music_off</Icon>
