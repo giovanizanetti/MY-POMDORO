@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useSideBarStyles } from './style'
 import { useContext } from 'react'
 import { Context } from '../../StoreProvider/index'
-import Settings from './Settings'
+import Settings from '../Settings'
 
 import {
   Drawer,

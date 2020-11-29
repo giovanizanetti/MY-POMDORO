@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Context } from '../../../StoreProvider/index.js'
+import { Context } from '../../StoreProvider'
 import SelectSong from './SelectSong'
 import SelectShortBreak from './SelectShortBreak'
 import SelectLongBreak from './SelectLongBreak'
@@ -32,7 +32,7 @@ import {
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
   SET_DISPLAY_BREAK_MENU,
-} from '../../../types'
+} from '../../types'
 
 import { makeStyles } from '@material-ui/core/styles'
 

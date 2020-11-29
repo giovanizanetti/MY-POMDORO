@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
-import { Context } from '../../../StoreProvider/index'
-import { SET_POMODORO_LENGTH } from '../../../types'
+import { Context } from '../../StoreProvider/index'
+import { SET_POMODORO_LENGTH } from '../../types'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
