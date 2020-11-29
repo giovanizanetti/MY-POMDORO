@@ -17,7 +17,7 @@ const useTimerStyles = makeStyles((theme) => ({
 const Timer = () => {
   const [state] = useContext(Context)
   const { root, ml } = useTimerStyles()
-  const [time, setTime] = useState(1500)
+  const [time, setTime] = useState(state.pomodoroLength)
   const [isActive, setIsActive] = useState(false)
   const [isSongPlaying, setIsSongPlaying] = useState(false)
   const minutes = Math.floor(time / 60) % 60
@@ -33,7 +33,6 @@ const Timer = () => {
       console.log('This browser does not support desktop notification')
     } else {
       Notification.requestPermission()
-      new Notification('Hey')
     }
   }, [])
 
@@ -59,8 +58,18 @@ const Timer = () => {
 
   // Countdown timer
   useEffect(() => {
+    const handlePomodoroTimeOver = () => {
+      if (state.sendNotifications) new Notification('Time is over')
+      if (state.automaticBreak)
+        setTimeout(() => {
+          setTime(state.shortBreakLength)
+          setIsActive(true)
+        }, 3000)
+    }
+
     let interval = null
     if (time === 0) {
+      handlePomodoroTimeOver()
       setIsActive(false)
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
@@ -77,7 +86,7 @@ const Timer = () => {
 
   return (
     <>
-      <button onClick={() => new Notification('Hey')}></button>
+      {/* <button onClick={() => new Notification('Hey')}></button> */}
       <audio
         disableRemotePlayback={true}
         ref={audioRef}

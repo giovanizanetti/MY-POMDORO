@@ -15,9 +15,10 @@ let initialState = {
   pomodoroDailyTarget: 0,
   pomodoroWeeklyTarget: 0,
   sendNotifications: true,
-  shortBreakLength: 300,
+  shortBreakLength: 5,
   openSettings: false,
   error: null,
+  timerType: 'pomodoro',
 }
 
 const Store = ({ children }) => {
