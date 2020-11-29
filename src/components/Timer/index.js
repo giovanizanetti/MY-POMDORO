@@ -19,14 +19,23 @@ const Timer = () => {
   const { root, ml } = useTimerStyles()
   const [time, setTime] = useState(1500)
   const [isActive, setIsActive] = useState(false)
-  const [playSong, setPlaySong] = useState(true)
   const [isSongPlaying, setIsSongPlaying] = useState(false)
   const minutes = Math.floor(time / 60) % 60
   const audioRef = useRef()
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
 
-  document.title = countDown
+  if (state.displayDocTitleTimer) document.title = countDown
+  else document.title = 'My Pomodoro'
+
+  useEffect(() => {
+    if (!('Notification' in window)) {
+      console.log('This browser does not support desktop notification')
+    } else {
+      Notification.requestPermission()
+      new Notification('Hey')
+    }
+  }, [])
 
   // Song play
   useEffect(() => {
@@ -53,7 +62,7 @@ const Timer = () => {
     let interval = null
     if (time === 0) {
       setIsActive(false)
-      playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
+      state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
     if (isActive) {
       interval = setInterval(() => {
@@ -64,10 +73,11 @@ const Timer = () => {
     }
 
     return () => clearInterval(interval)
-  }, [isActive, time, playSong])
+  }, [isActive, time, state.playSong])
 
   return (
     <>
+      <button onClick={() => new Notification('Hey')}></button>
       <audio
         disableRemotePlayback={true}
         ref={audioRef}

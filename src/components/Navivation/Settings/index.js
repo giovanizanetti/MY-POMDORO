@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Settings = () => {
   const [state, dispatch] = useContext(Context)
+  console.log(state.displayDocTitleTimer)
 
   const { modalHeader, button, formControl } = useStyles()
 
