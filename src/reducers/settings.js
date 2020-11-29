@@ -29,9 +29,9 @@ export default (state, action) => {
     case SET_POMODORO_LENGTH:
       return { ...state, pomodoroLength: action.payload }
     case SET_SHORT_BREAK_LENGTH:
-      return { ...state, shorBreakLength: action.payload }
+      return { ...state, shortBreakLength: action.payload }
     case SET_LONG_BREAK_LENGTH:
-      return { ...state, shorBreakLength: action.payload }
+      return { ...state, longBreakLength: action.payload }
     case SET_LUNCH_BREAK_LENGTH:
       return { ...state, lunchBreakLength: action.payload }
     case SET_DISPLAY_BREAK_MENU:
