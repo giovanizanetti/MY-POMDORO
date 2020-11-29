@@ -24,6 +24,12 @@ const Timer = () => {
   const audioRef = useRef()
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
+  const { pomodoro, shortBreak, longBreak, lunchBreak } = {
+    pomodoro: 'pomodoro',
+    shortBreak: 'short-break',
+    longBreak: 'long-break',
+    lunchBreak: 'lunch-break',
+  }
 
   if (state.displayDocTitleTimer) document.title = countDown
   else document.title = 'My Pomodoro'
@@ -59,7 +65,8 @@ const Timer = () => {
   // Countdown timer
   useEffect(() => {
     const handlePomodoroTimeOver = () => {
-      if (state.sendNotifications) new Notification('Time is over')
+      const message = 'Pomodoro is over. Take some stretch'
+      if (state.sendNotifications) new Notification(message)
       if (state.automaticBreak)
         setTimeout(() => {
           setTime(state.shortBreakLength)
@@ -67,12 +74,24 @@ const Timer = () => {
         }, 3000)
     }
 
+    const handleBreakTimeOver = () => {
+      const message = "Break is over! Let's get back to work."
+      if (state.sendNotifications) new Notification(message)
+      if (state.automaticPomodoro)
+        setTimeout(() => {
+          setTime(state.pomodoroLength)
+          setIsActive(true)
+        }, 3000)
+    }
+
     let interval = null
     if (time === 0) {
-      handlePomodoroTimeOver()
       setIsActive(false)
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
+    if (time === 0 && state.timerType === pomodoro) handlePomodoroTimeOver()
+
+    if (time === 0 && state.timerType !== pomodoro) handleBreakTimeOver()
     if (isActive) {
       interval = setInterval(() => {
         setTime((time) => time - 1)
@@ -82,7 +101,18 @@ const Timer = () => {
     }
 
     return () => clearInterval(interval)
-  }, [isActive, time, state.playSong])
+  }, [
+    isActive,
+    time,
+    state.playSong,
+    pomodoro,
+    state.automaticBreak,
+    state.automaticPomodoro,
+    state.sendNotifications,
+    state.pomodoroLength,
+    state.timerType,
+    state.shortBreakLength,
+  ])
 
   return (
     <>

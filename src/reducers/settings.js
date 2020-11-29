@@ -12,7 +12,7 @@ import {
   SET_POMODORO_WEEKLY_TARGET,
   SET_DISPLAY_DOC_TITLE_TIMER,
   SET_OPEN_SETTINGS,
-  SET_TIMER_TYPE
+  SET_TIMER_TYPE,
   // SET_ERROR,
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
@@ -57,7 +57,7 @@ export default (state, action) => {
     case SET_OPEN_SETTINGS:
       return { ...state, openSettings: !state.openSettings }
     case SET_TIMER_TYPE:
-      return { ...state, timerType: action.payload}
+      return { ...state, timerType: action.payload }
     default:
       return state
   }
