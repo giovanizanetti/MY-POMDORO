@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Toolbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { PlayArrow, Restore, Pause } from '@material-ui/icons'
+import { Context } from '../../StoreProvider'
 
 const useTimerControlStyles = makeStyles((theme) => ({
   root: { justifyContent: 'center' },
@@ -19,6 +20,7 @@ const useTimerControlStyles = makeStyles((theme) => ({
 }))
 
 const TimerControl = ({ isActive, setIsActive, setTime }) => {
+  const [state] = useContext(Context)
   const { root, buttonSecondary, controllers, mr } = useTimerControlStyles()
   return (
     <>
@@ -46,7 +48,7 @@ const TimerControl = ({ isActive, setIsActive, setTime }) => {
           fullWidth={true}
           onClick={() => {
             setIsActive(false)
-            setTime(1500)
+            setTime(state.pomodoroLength)
           }}
           className={controllers}
           variant='contained'
