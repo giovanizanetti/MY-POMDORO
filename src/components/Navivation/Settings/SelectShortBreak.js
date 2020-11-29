@@ -18,7 +18,9 @@ const SelectSong = () => {
 
   return (
     <FormControl className={formControl}>
-      <InputLabel id='select-short-break-label'></InputLabel>
+      <InputLabel id='select-short-break-label'>
+        Select the length for shor breaks
+      </InputLabel>
       <Select
         labelId='select-short-break-label'
         id='short-break'
