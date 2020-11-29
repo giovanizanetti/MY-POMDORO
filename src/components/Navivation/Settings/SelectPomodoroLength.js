@@ -19,7 +19,7 @@ const SelectSong = () => {
   return (
     <FormControl className={formControl}>
       <InputLabel id='select-short-break-label'>
-        Select the length for lunch breaks
+        Select the length for long breaks
       </InputLabel>
       <Select
         labelId='select-short-break-label'

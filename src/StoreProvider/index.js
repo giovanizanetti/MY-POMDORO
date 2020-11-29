@@ -9,7 +9,7 @@ let initialState = {
   displayBreakMenu: true,
   displayDocTitleTimer: true,
   longBreakLength: 900,
-  lunchBreakLength: 2600,
+  lunchBreakLength: 2700,
   playSong: true,
   pomodoroLength: 1500,
   pomodoroCount: 0,
