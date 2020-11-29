@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Toolbar, Button, Icon } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Context } from '../../StoreProvider/index'
 
 const useBreakControlStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,7 @@ const useBreakControlStyles = makeStyles((theme) => ({
 }))
 
 const BreakControl = ({ setIsActive, setTime }) => {
+  const [state] = useContext(Context)
   const { root, m, mr } = useBreakControlStyles()
 
   const handleBreak = (breakLengh) => {
@@ -27,7 +29,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
       <Toolbar variant='dense' className={root}>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(300)}
+          onClick={() => handleBreak(state.shortBreakLength)}
           variant='contained'
           className={m}
         >
@@ -36,7 +38,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
         </Button>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(900)}
+          onClick={() => handleBreak(state.longBreakLength)}
           className={m}
           variant='contained'
         >
@@ -45,7 +47,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
         </Button>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(2700)}
+          onClick={() => handleBreak(state.lunchBreakLength)}
           className={m}
           variant='contained'
         >
