@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { Context } from '../../../StoreProvider/index'
-import { SET_SHORT_BREAK_LENGTH } from '../../../types'
+import { SET_LONG_BREAK_LENGTH } from '../../../types'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +19,7 @@ const SelectSong = () => {
   return (
     <FormControl className={formControl}>
       <InputLabel id='select-short-break-label'>
-        Select the length for short breaks
+        Select the length for long breaks
       </InputLabel>
       <Select
         labelId='select-short-break-label'
@@ -28,13 +28,13 @@ const SelectSong = () => {
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         onChange={(e) =>
-          dispatch({ type: SET_SHORT_BREAK_LENGTH, payload: e.target.value })
+          dispatch({ type: SET_LONG_BREAK_LENGTH, payload: e.target.value })
         }
-        value={state.shortBreakLength}
+        value={state.longBreakLength}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
+        {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 30].map((option) => (
           <MenuItem key={option} value={option * 60}>
-            {`${option} ${option === 1 ? 'minute' : 'minutes'}`}
+            {`${option} minutes`}
           </MenuItem>
         ))}
       </Select>

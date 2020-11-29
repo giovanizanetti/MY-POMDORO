@@ -8,7 +8,7 @@ let initialState = {
   alarmSong: '/songs/alarm_not_too_loud.mp3',
   displayBreakMenu: true,
   displayDocTitleTimer: true,
-  longBreakLength: 9000,
+  longBreakLength: 900,
   lunchBreakLength: 2600,
   playSong: true,
   pomodoroLength: 1500,

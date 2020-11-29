@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { Context } from '../../../StoreProvider/index.js'
 import SelectSong from './SelectSong'
 import SelectShortBreak from './SelectShortBreak'
+import SelectLongBreak from './SelectLongBreak'
 
 import {
   Dialog,
@@ -107,6 +108,7 @@ const Settings = () => {
               />
               <SelectSong />
               <SelectShortBreak />
+              <SelectLongBreak />
             </FormGroup>
           </FormControl>
         </DialogContent>
