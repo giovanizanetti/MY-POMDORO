@@ -81,7 +81,7 @@ const Timer = () => {
       <audio
         disableRemotePlayback={true}
         ref={audioRef}
-        src='/songs/beat-alarm.mp3'
+        src={state.alarmSong}
       />
       <div>
         {state.displayBreakMenu && (
