@@ -1,5 +1,9 @@
 import * as React from 'react'
 import { DataGrid } from '@material-ui/data-grid'
+import { Dialog } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+
+export const useStyles = makeStyles((theme) => ({}))
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -38,9 +42,23 @@ const rows = [
 
 const Logo = () => {
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-    </div>
+    <Dialog
+      style={{ top: '10%' }}
+      fullWidth={true}
+      maxWidth={'md'}
+      // onClose={handleClose}
+      aria-labelledby='max-width-dialog-title'
+      open={true}
+    >
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          checkboxSelection
+        />
+      </div>
+    </Dialog>
   )
 }
 
