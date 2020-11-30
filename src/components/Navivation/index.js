@@ -6,7 +6,6 @@ import SideBar from './SideBar'
 
 const Navigation = () => {
   const { root, alignNavItems, logo, menuButton } = useNavStyles()
-
   const [isVisible, setIsVisible] = useState(false)
   const toggleSideBar = () => setIsVisible(!isVisible)
 
@@ -28,7 +27,11 @@ const Navigation = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <SideBar isVisible={isVisible} toggleSideBar={toggleSideBar} />
+      <SideBar
+        onClick={() => toggleSideBar()}
+        isVisible={isVisible}
+        toggleSideBar={toggleSideBar}
+      />
     </>
   )
 }

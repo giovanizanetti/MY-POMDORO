@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
+import { Context } from '../../StoreProvider/index'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -14,17 +15,32 @@ const useTimerStyles = makeStyles((theme) => ({
 }))
 
 const Timer = () => {
+  const [state] = useContext(Context)
   const { root, ml } = useTimerStyles()
-  const [time, setTime] = useState(1500)
+  const [time, setTime] = useState(state.pomodoroLength)
   const [isActive, setIsActive] = useState(false)
-  const [playSong, setPlaySong] = useState(true)
   const [isSongPlaying, setIsSongPlaying] = useState(false)
   const minutes = Math.floor(time / 60) % 60
   const audioRef = useRef()
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
+  const { pomodoro, shortBreak, longBreak, lunchBreak } = {
+    pomodoro: 'pomodoro',
+    shortBreak: 'short-break',
+    longBreak: 'long-break',
+    lunchBreak: 'lunch-break',
+  }
 
-  document.title = countDown
+  if (state.displayDocTitleTimer) document.title = countDown
+  else document.title = 'My Pomodoro'
+
+  useEffect(() => {
+    if (!('Notification' in window)) {
+      console.log('This browser does not support desktop notification')
+    } else {
+      Notification.requestPermission()
+    }
+  }, [])
 
   // Song play
   useEffect(() => {
@@ -48,11 +64,34 @@ const Timer = () => {
 
   // Countdown timer
   useEffect(() => {
+    const handlePomodoroTimeOver = () => {
+      const message = 'Pomodoro is over. Take some stretch'
+      if (state.sendNotifications) new Notification(message)
+      if (state.automaticBreak)
+        setTimeout(() => {
+          setTime(state.shortBreakLength)
+          setIsActive(true)
+        }, 3000)
+    }
+
+    const handleBreakTimeOver = () => {
+      const message = "Break is over! Let's get back to work."
+      if (state.sendNotifications) new Notification(message)
+      if (state.automaticPomodoro)
+        setTimeout(() => {
+          setTime(state.pomodoroLength)
+          setIsActive(true)
+        }, 3000)
+    }
+
     let interval = null
     if (time === 0) {
       setIsActive(false)
-      playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
+      state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
+    if (time === 0 && state.timerType === pomodoro) handlePomodoroTimeOver()
+
+    if (time === 0 && state.timerType !== pomodoro) handleBreakTimeOver()
     if (isActive) {
       interval = setInterval(() => {
         setTime((time) => time - 1)
@@ -62,17 +101,31 @@ const Timer = () => {
     }
 
     return () => clearInterval(interval)
-  }, [isActive, time, playSong])
+  }, [
+    isActive,
+    time,
+    state.playSong,
+    pomodoro,
+    state.automaticBreak,
+    state.automaticPomodoro,
+    state.sendNotifications,
+    state.pomodoroLength,
+    state.timerType,
+    state.shortBreakLength,
+  ])
 
   return (
     <>
+      {/* <button onClick={() => new Notification('Hey')}></button> */}
       <audio
         disableRemotePlayback={true}
         ref={audioRef}
-        src='/songs/beat-alarm.mp3'
+        src={state.alarmSong}
       />
       <div>
-        <BreakControl setIsActive={setIsActive} setTime={setTime} />
+        {state.displayBreakMenu && (
+          <BreakControl setIsActive={setIsActive} setTime={setTime} />
+        )}
         {isSongPlaying && (
           <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>
             <Icon color='secondary'>music_off</Icon>
