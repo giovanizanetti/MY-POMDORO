@@ -2,15 +2,17 @@ import './App.css'
 import Navigation from './components/Navivation'
 import Timer from './components/Timer'
 import StoreProvider from './StoreProvider/index'
+import Log from './components/Log'
 
 function App() {
   return (
     <div className='App'>
       <StoreProvider>
         <Navigation />
-        <header className='App-header'>
+        {/* <header className='App-header'>
           <Timer />
-        </header>
+        </header> */}
+        <Log />
       </StoreProvider>
 
       {/* <header className='App-header'>
