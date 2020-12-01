@@ -15,13 +15,13 @@ const useBreakControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const BreakControl = ({ setIsActive, setTime }) => {
+const BreakControl = ({ setTime, handleStart }) => {
   const [state] = useContext(Context)
   const { root, m, mr } = useBreakControlStyles()
 
-  const handleBreak = (breakLengh) => {
+  const handleBreak = (breakLengh, breakType) => {
     setTime(breakLengh)
-    setIsActive(true)
+    handleStart(breakType)
   }
 
   return (
@@ -29,7 +29,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
       <Toolbar variant='dense' className={root}>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(state.shortBreakLength)}
+          onClick={() => handleBreak(state.shortBreakLength, 'short break')}
           variant='contained'
           className={m}
         >
@@ -38,7 +38,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
         </Button>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(state.longBreakLength)}
+          onClick={() => handleBreak(state.longBreakLength, 'long break')}
           className={m}
           variant='contained'
         >
@@ -47,7 +47,7 @@ const BreakControl = ({ setIsActive, setTime }) => {
         </Button>
         <Button
           fullWidth={true}
-          onClick={() => handleBreak(state.lunchBreakLength)}
+          onClick={() => handleBreak(state.lunchBreakLength, 'lunch break')}
           className={m}
           variant='contained'
         >
