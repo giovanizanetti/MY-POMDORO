@@ -3,6 +3,7 @@ import { Toolbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { PlayArrow, Restore, Pause } from '@material-ui/icons'
 import { Context } from '../../StoreProvider'
+import { SET_CURRENT_SESSION } from '../../types'
 
 const useTimerControlStyles = makeStyles((theme) => ({
   root: { justifyContent: 'center' },
@@ -20,14 +21,28 @@ const useTimerControlStyles = makeStyles((theme) => ({
 }))
 
 const TimerControl = ({ isActive, setIsActive, setTime }) => {
-  const [state] = useContext(Context)
+  const [state, dispatch] = useContext(Context)
   const { root, buttonSecondary, controllers, mr } = useTimerControlStyles()
+
+  const handleStart = () => {
+    setIsActive(true)
+    dispatch({
+      type: SET_CURRENT_SESSION,
+      payload: {
+        // session: 'pomodoro',
+        // duration: breakDuration,
+        startTime: new Date().toLocaleTimeString('en-GB'),
+        id: Date.now(),
+      },
+    })
+  }
+
   return (
     <>
       <Toolbar variant='dense' className={root}>
         <Button
           fullWidth={true}
-          onClick={() => setIsActive(true)}
+          onClick={handleStart}
           variant='contained'
           className={buttonSecondary}
         >
