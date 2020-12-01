@@ -45,7 +45,7 @@ const TimerControl = ({ isActive, setIsActive, setTime, handleStart }) => {
       <Toolbar variant='dense' className={root}>
         <Button
           fullWidth={true}
-          onClick={handleStart}
+          onClick={() => !isActive && handleStart('pomodoro')}
           variant='contained'
           className={buttonSecondary}
         >

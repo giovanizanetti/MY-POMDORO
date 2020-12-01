@@ -138,20 +138,21 @@ const Timer = () => {
     dispatch,
   ])
 
-  const handleStart = () => {
-    console.log(time)
+  const handleStart = (sessionType) => {
+    // if (isActive) return
     setIsActive(true)
     dispatch({
       type: SET_CURRENT_SESSION,
       payload: {
         // CHECK FOR TYPE (pomodoro or break) IN THE LAST ELEMENT
         // FROM THE POMODOROLOGS ARRAY IN THE LOCAL STORAGE
-        // session: 'pomodoro',
+        session: sessionType,
         // duration: breakDuration,
         startTime: new Date().toLocaleTimeString('en-GB'),
         id: Date.now(),
       },
     })
+    console.log(state.currentSession)
   }
 
   return (
@@ -164,7 +165,11 @@ const Timer = () => {
       />
       <div>
         {state.displayBreakMenu && (
-          <BreakControl setIsActive={setIsActive} setTime={setTime} />
+          <BreakControl
+            isActive={isActive}
+            handleStart={handleStart}
+            setTime={setTime}
+          />
         )}
         {isSongPlaying && (
           <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>

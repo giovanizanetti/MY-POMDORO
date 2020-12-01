@@ -15,13 +15,15 @@ const useBreakControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const BreakControl = ({ setTime, handleStart }) => {
+const BreakControl = ({ isActive, setTime, handleStart }) => {
   const [state] = useContext(Context)
   const { root, m, mr } = useBreakControlStyles()
 
   const handleBreak = (breakLengh, breakType) => {
-    setTime(breakLengh)
-    handleStart(breakType)
+    if (!isActive) {
+      setTime(breakLengh)
+      handleStart(breakType)
+    }
   }
 
   return (
