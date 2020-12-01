@@ -16,6 +16,7 @@ import {
   // SET_ERROR,
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
+  SET_CURRENT_SESSION,
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -58,6 +59,8 @@ export default (state, action) => {
       return { ...state, openSettings: !state.openSettings }
     case SET_TIMER_TYPE:
       return { ...state, timerType: action.payload }
+    case SET_CURRENT_SESSION:
+      return { ...state, currentSession: action.payload }
     default:
       return state
   }
