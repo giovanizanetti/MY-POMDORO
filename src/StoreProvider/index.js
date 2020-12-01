@@ -19,6 +19,7 @@ let initialState = {
   openSettings: false,
   error: null,
   timerType: 'pomodoro',
+  currentSession: {},
 }
 
 const Store = ({ children }) => {

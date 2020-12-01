@@ -1,59 +1,72 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme) => ({}))
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+const columnsSchema = [
+  { field: 'session', headerName: 'Session', width: 150 },
+  { field: 'startTime', headerName: 'Starting Time', width: 220 },
+  { field: 'endTime', headerName: 'Ending Time', width: 220 },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
+    field: 'number',
+    headerName: 'Number',
     width: 90,
   },
+]
+
+// THIS DARA WILL COME FROM THE  LOCAL_STORAGE
+const rows = [
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue('firstName') || ''} ${
-        params.getValue('lastName') || ''
-      }`,
+    id: 1,
+    session: 'pomodoro',
+    startTime: 'Snow',
+    endTime: 'Jon',
+    number: '1 / 1',
+  },
+  {
+    id: 2,
+    session: 'pomodoro',
+    startTime: 'Snow',
+    endTime: 'Jon',
+    number: '1 / 3',
+  },
+  {
+    id: 4,
+    session: 'pomodoro',
+    startTime: 'Snow',
+    endTime: 'Jon',
+    number: '1 / 3',
+  },
+  {
+    id: 5,
+    session: 'pomodoro',
+    startTime: 'Snow',
+    endTime: 'Jon',
+    number: '1 / 4',
   },
 ]
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-]
+const Log = () => {
+  const [open, setOpen] = useState(true)
 
-const Logo = () => {
+  // console.log(new Date().toLocaleTimeString('en-GB'))
+
+  // new Date().toLocaleDateString('en-GB')
+
   return (
     <Dialog
-      style={{ top: '10%' }}
       fullWidth={true}
       maxWidth={'md'}
-      // onClose={handleClose}
+      onClose={() => setOpen(false)}
       aria-labelledby='max-width-dialog-title'
-      open={true}
+      open={open}
     >
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={rows}
-          columns={columns}
+          rows={rows} //THIS DATA WILL COME FROM LOCAL STORE
+          columns={columnsSchema}
           pageSize={5}
           checkboxSelection
         />
@@ -62,4 +75,4 @@ const Logo = () => {
   )
 }
 
-export default Logo
+export default Log

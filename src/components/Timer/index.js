@@ -4,6 +4,7 @@ import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
 import { Context } from '../../StoreProvider/index'
+import { SET_CURRENT_SESSION } from '../../types'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +16,7 @@ const useTimerStyles = makeStyles((theme) => ({
 }))
 
 const Timer = () => {
-  const [state] = useContext(Context)
+  const [state, dispatch] = useContext(Context)
   const { root, ml } = useTimerStyles()
   const [time, setTime] = useState(state.pomodoroLength)
   const [isActive, setIsActive] = useState(false)
@@ -67,6 +68,17 @@ const Timer = () => {
     const handlePomodoroTimeOver = () => {
       const message = 'Pomodoro is over. Take some stretch'
       if (state.sendNotifications) new Notification(message)
+
+      // dispatch({
+      //   type: SET_CURRENT_SESSION,
+      //   payload: {
+      //     session: 'pomodoro',
+      //     // duration: breakDuration,
+      //     startTime: new Date().toLocaleTimeString('en-GB'),
+      //     id: Date.now(),
+      //   },
+      // })
+
       if (state.automaticBreak)
         setTimeout(() => {
           setTime(state.shortBreakLength)
@@ -74,7 +86,16 @@ const Timer = () => {
         }, 3000)
     }
 
-    const handleBreakTimeOver = () => {
+    const handleBreakTimeOver = (breakDuration) => {
+      // dispatch({
+      //   type: SET_CURRENT_SESSION,
+      //   payload: {
+      //     session: 'pomodoro',
+      //     duration: breakDuration,
+      //     startTime: new Date().toLocaleTimeString('en-GB'),
+      //     id: Date.now(),
+      //   },
+      // })
       const message = "Break is over! Let's get back to work."
       if (state.sendNotifications) new Notification(message)
       if (state.automaticPomodoro)
@@ -89,9 +110,11 @@ const Timer = () => {
       setIsActive(false)
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
-    if (time === 0 && state.timerType === pomodoro) handlePomodoroTimeOver()
+    if (time === 0 && state.timerType === pomodoro)
+      handlePomodoroTimeOver(state.pomodoroLength)
 
-    if (time === 0 && state.timerType !== pomodoro) handleBreakTimeOver()
+    if (time === 0 && state.timerType !== pomodoro)
+      handleBreakTimeOver(state.timerType)
     if (isActive) {
       interval = setInterval(() => {
         setTime((time) => time - 1)
@@ -112,7 +135,24 @@ const Timer = () => {
     state.pomodoroLength,
     state.timerType,
     state.shortBreakLength,
+    dispatch,
   ])
+
+  const handleStart = () => {
+    console.log(time)
+    setIsActive(true)
+    dispatch({
+      type: SET_CURRENT_SESSION,
+      payload: {
+        // CHECK FOR TYPE (pomodoro or break) IN THE LAST ELEMENT
+        // FROM THE POMODOROLOGS ARRAY IN THE LOCAL STORAGE
+        // session: 'pomodoro',
+        // duration: breakDuration,
+        startTime: new Date().toLocaleTimeString('en-GB'),
+        id: Date.now(),
+      },
+    })
+  }
 
   return (
     <>
@@ -135,6 +175,7 @@ const Timer = () => {
         <span className={root}>{countDown}</span>
 
         <TimerControl
+          handleStart={handleStart}
           isActive={isActive}
           setIsActive={setIsActive}
           setTime={setTime}
