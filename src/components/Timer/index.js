@@ -4,7 +4,7 @@ import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
 import { Context } from '../../StoreProvider/index'
-import { SET_CURRENT_SESSION, SET_END_TIME } from '../../types'
+import { SET_CURRENT_SESSION, SET_END_TIME_AND_SAVE } from '../../types'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -25,19 +25,16 @@ const Timer = () => {
   const audioRef = useRef()
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
-  const { pomodoro, shortBreak, longBreak, lunchBreak } = {
-    pomodoro: 'pomodoro',
-    shortBreak: 'short-break',
-    longBreak: 'long-break',
-    lunchBreak: 'lunch-break',
-  }
+  const pomodoro = 'pomodoro'
 
   if (state.displayDocTitleTimer) document.title = countDown
   else document.title = 'My Pomodoro'
 
   useEffect(() => {
     localStorage.clear()
-  }, [])
+    dispatch({ type: SET_CURRENT_SESSION, payload: {} })
+    console.log(localStorage)
+  }, [dispatch])
 
   useEffect(() => {
     if (!('Notification' in window)) {
@@ -49,7 +46,7 @@ const Timer = () => {
 
   // Song play
   useEffect(() => {
-    setIsSongPlaying(false) // initial render clear cashed sound
+    setIsSongPlaying(false) // in initial render clear cashed sound
 
     const stopSound = () => {
       audioRef.current.pause()
@@ -69,19 +66,6 @@ const Timer = () => {
 
   // Countdown timer
   useEffect(() => {
-    // const handleSaveLog = () => {
-    //   let userLogs = []
-    //   // Parse the serialized data back into an aray of objects
-    //   userLogs = JSON.parse(localStorage.getItem('session')) || []
-    //   // Push the new data (whether it be an object or anything else) onto the array
-    //   userLogs.push(state.currentSession)
-    //   // Re-serialize the array back into a string and store it in localStorage
-    //   localStorage.setItem('session', JSON.stringify(userLogs))
-    //   // Reset current session on the state
-
-    //   console.log(state.currentSession)
-    //   console.log(localStorage)
-    // }
     const handleTimeOver = () => {
       const message =
         state.currentSession.session === pomodoro
@@ -92,10 +76,7 @@ const Timer = () => {
 
       const payload = new Date().toLocaleTimeString('en-GB')
 
-      dispatch({ type: SET_END_TIME, payload })
-      // handleSaveLog()
-      // dispatch({ type: SET_CURRENT_SESSION, payload: {} })
-
+      dispatch({ type: SET_END_TIME_AND_SAVE, payload })
       if (state.automaticBreak)
         setTimeout(() => {
           setTime(state.shortBreakLength)
@@ -140,10 +121,7 @@ const Timer = () => {
     dispatch({
       type: SET_CURRENT_SESSION,
       payload: {
-        // CHECK FOR TYPE (pomodoro or break) IN THE LAST ELEMENT
-        // FROM THE POMODOROLOGS ARRAY IN THE LOCAL STORAGE
         session: sessionType,
-        // duration: breakDuration,
         startTime: new Date().toLocaleTimeString('en-GB'),
         id: Date.now(),
       },
@@ -153,7 +131,6 @@ const Timer = () => {
 
   return (
     <>
-      {/* <button onClick={() => new Notification('Hey')}></button> */}
       <audio
         disableRemotePlayback={true}
         ref={audioRef}
