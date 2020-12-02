@@ -32,7 +32,6 @@ const Timer = () => {
 
   useEffect(() => {
     dispatch({ type: SET_CURRENT_SESSION, payload: {} })
-    console.log(localStorage)
   }, [dispatch])
 
   useEffect(() => {
@@ -126,7 +125,6 @@ const Timer = () => {
         id: Date.now(),
       },
     })
-    console.log(state.currentSession)
   }
 
   return (

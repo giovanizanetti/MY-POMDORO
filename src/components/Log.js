@@ -1,6 +1,11 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
-import { Dialog, DialogTitle, Typography } from '@material-ui/core'
+import {
+  Dialog,
+  DialogTitle,
+  Typography,
+  DialogContent,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Context } from '../StoreProvider'
 import { SET_OPEN_LOGS } from '../types'
@@ -12,12 +17,6 @@ const columnsSchema = [
   { field: 'date', headerName: 'Date', width: 150 },
   { field: 'startTime', headerName: 'Starting Time', width: 150 },
   { field: 'endTime', headerName: 'Ending Time', width: 1500 },
-
-  // {
-  //   field: 'number',
-  //   headerName: 'Number',
-  //   width: 90,
-  // },
 ]
 
 const Log = () => {
@@ -25,13 +24,6 @@ const Log = () => {
   const data = localStorage.session
     ? JSON.parse(localStorage.session)
     : undefined
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
-  // console.log(new Date().toLocaleTimeString('en-GB'))
-
-  // new Date().toLocaleDateString('en-GB')
 
   return (
     <Dialog
@@ -44,18 +36,31 @@ const Log = () => {
       <DialogTitle onClose={() => dispatch({ type: SET_OPEN_LOGS })}>
         Logs
       </DialogTitle>
-      <div style={{ height: 400, width: '100%' }}>
-        {data ? (
-          <DataGrid
-            rows={data} //THIS DATA WILL COME FROM LOCAL STORE
-            columns={columnsSchema}
-            pageSize={5}
-            checkboxSelection
-          />
-        ) : (
-          <Typography>YOU HAVE NO LOGS YET</Typography>
-        )}
-      </div>
+      <DialogContent>
+        <div style={{ height: 400, width: '100%' }}>
+          {data ? (
+            <DataGrid
+              rows={data} //THIS DATA WILL COME FROM LOCAL STORE
+              columns={columnsSchema}
+              pageSize={5}
+              checkboxSelection
+            />
+          ) : (
+            <strong
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '80%',
+                fontSize: '2rem',
+                color: 'red',
+              }}
+            >
+              You have no logs yet!
+            </strong>
+          )}
+        </div>
+      </DialogContent>
     </Dialog>
   )
 }
