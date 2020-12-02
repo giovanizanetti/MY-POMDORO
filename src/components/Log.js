@@ -9,52 +9,25 @@ export const useStyles = makeStyles((theme) => ({}))
 
 const columnsSchema = [
   { field: 'session', headerName: 'Session', width: 150 },
-  { field: 'startTime', headerName: 'Starting Time', width: 220 },
-  { field: 'endTime', headerName: 'Ending Time', width: 220 },
-  {
-    field: 'number',
-    headerName: 'Number',
-    width: 90,
-  },
-]
+  { field: 'date', headerName: 'Date', width: 150 },
+  { field: 'startTime', headerName: 'Starting Time', width: 150 },
+  { field: 'endTime', headerName: 'Ending Time', width: 1500 },
 
-// THIS DARA WILL COME FROM THE  LOCAL_STORAGE
-const rows = [
-  {
-    id: 1,
-    session: 'pomodoro',
-    startTime: 'Snow',
-    endTime: 'Jon',
-    number: '1 / 1',
-  },
-  {
-    id: 2,
-    session: 'pomodoro',
-    startTime: 'Snow',
-    endTime: 'Jon',
-    number: '1 / 3',
-  },
-  {
-    id: 4,
-    session: 'pomodoro',
-    startTime: 'Snow',
-    endTime: 'Jon',
-    number: '1 / 3',
-  },
-  {
-    id: 5,
-    session: 'pomodoro',
-    startTime: 'Snow',
-    endTime: 'Jon',
-    number: '1 / 4',
-  },
+  // {
+  //   field: 'number',
+  //   headerName: 'Number',
+  //   width: 90,
+  // },
 ]
 
 const Log = () => {
   const [state, dispatch] = useContext(Context)
-  const [open, setOpen] = useState(true)
-
-  useEffect(() => console.log(localStorage), [])
+  const data = localStorage.session
+    ? JSON.parse(localStorage.session)
+    : undefined
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   // console.log(new Date().toLocaleTimeString('en-GB'))
 
@@ -68,10 +41,12 @@ const Log = () => {
       aria-labelledby='max-width-dialog-title'
       open={state.openLogs}
     >
-      <DialogTitle onClose={true}>Logs</DialogTitle>
+      <DialogTitle onClose={() => dispatch({ type: SET_OPEN_LOGS })}>
+        Logs
+      </DialogTitle>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={rows} //THIS DATA WILL COME FROM LOCAL STORE
+          rows={data} //THIS DATA WILL COME FROM LOCAL STORE
           columns={columnsSchema}
           pageSize={5}
           checkboxSelection

@@ -68,6 +68,10 @@ export default (state, action) => {
       const clonedObj = Object.assign(state.currentSession)
       clonedObj.endTime = action.payload // add end time
       let userLogs = []
+      //TODO
+      // MAKE SURE TO CHECK FOR UNIQUE LOGS BY ID
+      // AT THIS MOMENT IS BEING ADDED 3 IDENTICAL INSTACES OF THE SAME LOG. WHY?????
+
       // Parse the serialized data back into an aray of objects
       userLogs = JSON.parse(localStorage.getItem('session')) || []
       // Push the new data (whether it be an object or anything else) onto the array

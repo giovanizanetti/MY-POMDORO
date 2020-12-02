@@ -120,6 +120,7 @@ const Timer = () => {
     dispatch({
       type: SET_CURRENT_SESSION,
       payload: {
+        date: new Date().toLocaleDateString('en-GB'),
         session: sessionType,
         startTime: new Date().toLocaleTimeString('en-GB'),
         id: Date.now(),
