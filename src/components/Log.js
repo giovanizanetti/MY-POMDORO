@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
-import { Dialog, DialogTitle } from '@material-ui/core'
+import { Dialog, DialogTitle, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Context } from '../StoreProvider'
 import { SET_OPEN_LOGS } from '../types'
@@ -45,12 +45,16 @@ const Log = () => {
         Logs
       </DialogTitle>
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={data} //THIS DATA WILL COME FROM LOCAL STORE
-          columns={columnsSchema}
-          pageSize={5}
-          checkboxSelection
-        />
+        {data ? (
+          <DataGrid
+            rows={data} //THIS DATA WILL COME FROM LOCAL STORE
+            columns={columnsSchema}
+            pageSize={5}
+            checkboxSelection
+          />
+        ) : (
+          <Typography>YOU HAVE NO LOGS YET</Typography>
+        )}
       </div>
     </Dialog>
   )
