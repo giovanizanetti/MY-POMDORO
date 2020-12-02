@@ -12,10 +12,12 @@ import {
   SET_POMODORO_WEEKLY_TARGET,
   SET_DISPLAY_DOC_TITLE_TIMER,
   SET_OPEN_SETTINGS,
+  SET_OPEN_LOGS,
   SET_TIMER_TYPE,
-  // SET_ERROR,
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
+  SET_CURRENT_SESSION,
+  SET_END_TIME_AND_SAVE,
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -56,8 +58,31 @@ export default (state, action) => {
       return { ...state, automaticPomodoro: !state.automaticPomodoro }
     case SET_OPEN_SETTINGS:
       return { ...state, openSettings: !state.openSettings }
+    case SET_OPEN_LOGS:
+      return { ...state, openLogs: !state.openLogs }
     case SET_TIMER_TYPE:
       return { ...state, timerType: action.payload }
+    case SET_CURRENT_SESSION:
+      return { ...state, currentSession: action.payload }
+    case SET_END_TIME_AND_SAVE:
+      const ls = localStorage.session && JSON.parse(localStorage.session)
+      const isLogExists =
+        ls && ls.find((session) => session.id === state.currentSession.id)
+      if (!isLogExists) {
+        const clonedObj = Object.assign(state.currentSession)
+        // add end time
+        clonedObj.endTime = action.payload
+        let userLogs = []
+        // Parse the serialized data back into an aray of objects
+        userLogs = JSON.parse(localStorage.getItem('session')) || []
+        // Push the new data (whether it be an object or anything else) onto the array
+        userLogs.push(clonedObj)
+        // Re-serialize the array back into a string and store it in localStorage
+        localStorage.setItem('session', JSON.stringify(userLogs))
+        // Reset current session on the state
+        return { ...state, currentSession: clonedObj }
+      }
+      return { ...state }
     default:
       return state
   }

@@ -15,7 +15,7 @@ import {
   Icon,
 } from '@material-ui/core'
 
-import { SET_OPEN_SETTINGS } from '../../types'
+import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 
 export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
   const [state, dispatch] = useContext(Context)
@@ -42,7 +42,11 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
               icon: 'settings',
               action: () => dispatch({ type: SET_OPEN_SETTINGS }),
             },
-            { name: 'Log', icon: 'history' },
+            {
+              name: 'Log',
+              icon: 'history',
+              action: () => dispatch({ type: SET_OPEN_LOGS }),
+            },
             { name: 'FAQ', icon: 'help_outline' },
           ].map((item) => (
             <ListItem button key={item.name} onClick={item.action}>

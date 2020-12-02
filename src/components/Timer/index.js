@@ -4,6 +4,7 @@ import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
 import { Context } from '../../StoreProvider/index'
+import { SET_CURRENT_SESSION, SET_END_TIME_AND_SAVE } from '../../types'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +16,7 @@ const useTimerStyles = makeStyles((theme) => ({
 }))
 
 const Timer = () => {
-  const [state] = useContext(Context)
+  const [state, dispatch] = useContext(Context)
   const { root, ml } = useTimerStyles()
   const [time, setTime] = useState(state.pomodoroLength)
   const [isActive, setIsActive] = useState(false)
@@ -24,15 +25,14 @@ const Timer = () => {
   const audioRef = useRef()
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
-  const { pomodoro, shortBreak, longBreak, lunchBreak } = {
-    pomodoro: 'pomodoro',
-    shortBreak: 'short-break',
-    longBreak: 'long-break',
-    lunchBreak: 'lunch-break',
-  }
+  const pomodoro = 'pomodoro'
 
   if (state.displayDocTitleTimer) document.title = countDown
   else document.title = 'My Pomodoro'
+
+  useEffect(() => {
+    dispatch({ type: SET_CURRENT_SESSION, payload: {} })
+  }, [dispatch])
 
   useEffect(() => {
     if (!('Notification' in window)) {
@@ -43,8 +43,9 @@ const Timer = () => {
   }, [])
 
   // Song play
+  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
   useEffect(() => {
-    setIsSongPlaying(false) // initial render do not play
+    setIsSongPlaying(false) // in initial render clear cashed sound
 
     const stopSound = () => {
       audioRef.current.pause()
@@ -63,10 +64,19 @@ const Timer = () => {
   }, [isSongPlaying])
 
   // Countdown timer
+  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
   useEffect(() => {
-    const handlePomodoroTimeOver = () => {
-      const message = 'Pomodoro is over. Take some stretch'
+    const handleTimeOver = () => {
+      const message =
+        state.currentSession.session === pomodoro
+          ? 'Pomodoro is over. Take some stretch'
+          : 'Break is over! Time to to focus!.'
+
       if (state.sendNotifications) new Notification(message)
+
+      const payload = new Date().toLocaleTimeString('en-GB')
+
+      dispatch({ type: SET_END_TIME_AND_SAVE, payload })
       if (state.automaticBreak)
         setTimeout(() => {
           setTime(state.shortBreakLength)
@@ -74,24 +84,13 @@ const Timer = () => {
         }, 3000)
     }
 
-    const handleBreakTimeOver = () => {
-      const message = "Break is over! Let's get back to work."
-      if (state.sendNotifications) new Notification(message)
-      if (state.automaticPomodoro)
-        setTimeout(() => {
-          setTime(state.pomodoroLength)
-          setIsActive(true)
-        }, 3000)
-    }
-
     let interval = null
     if (time === 0) {
       setIsActive(false)
+      handleTimeOver()
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
-    if (time === 0 && state.timerType === pomodoro) handlePomodoroTimeOver()
 
-    if (time === 0 && state.timerType !== pomodoro) handleBreakTimeOver()
     if (isActive) {
       interval = setInterval(() => {
         setTime((time) => time - 1)
@@ -112,11 +111,26 @@ const Timer = () => {
     state.pomodoroLength,
     state.timerType,
     state.shortBreakLength,
+    dispatch,
+    state.currentSession,
+    state.currentSession.endTime,
   ])
+
+  const handleStart = (sessionType) => {
+    setIsActive(true)
+    dispatch({
+      type: SET_CURRENT_SESSION,
+      payload: {
+        date: new Date().toLocaleDateString('en-GB'),
+        session: sessionType,
+        startTime: new Date().toLocaleTimeString('en-GB'),
+        id: Date.now(),
+      },
+    })
+  }
 
   return (
     <>
-      {/* <button onClick={() => new Notification('Hey')}></button> */}
       <audio
         disableRemotePlayback={true}
         ref={audioRef}
@@ -124,7 +138,11 @@ const Timer = () => {
       />
       <div>
         {state.displayBreakMenu && (
-          <BreakControl setIsActive={setIsActive} setTime={setTime} />
+          <BreakControl
+            isActive={isActive}
+            handleStart={handleStart}
+            setTime={setTime}
+          />
         )}
         {isSongPlaying && (
           <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>
@@ -135,6 +153,7 @@ const Timer = () => {
         <span className={root}>{countDown}</span>
 
         <TimerControl
+          handleStart={handleStart}
           isActive={isActive}
           setIsActive={setIsActive}
           setTime={setTime}

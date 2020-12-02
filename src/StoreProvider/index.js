@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useEffect } from 'react'
 import Reducer from '../reducers/settings'
 
 let initialState = {
@@ -16,13 +16,63 @@ let initialState = {
   pomodoroWeeklyTarget: 0,
   sendNotifications: true,
   shortBreakLength: 300,
+  // those below are not settings
   openSettings: false,
-  error: null,
+  openLogs: false,
   timerType: 'pomodoro',
+  currentSession: {},
 }
 
+// local storage user's saved settings
+const lsState =
+  localStorage.userSettings && JSON.parse(localStorage.userSettings)
+// merge with initial state
+initialState = { ...initialState, ...lsState }
+
 const Store = ({ children }) => {
+  //use mergerd state here
   const [state, dispatch] = useReducer(Reducer, initialState)
+
+  // extract and save only user's settings properties
+  const {
+    automaticBreak,
+    automaticPomodoro,
+    alarmSong,
+    displayBreakMenu,
+    displayDocTitleTimer,
+    longBreakLength,
+    lunchBreakLength,
+    playSong,
+    pomodoroLength,
+    pomodoroCount,
+    pomodoroDailyTarget,
+    pomodoroWeeklyTarget,
+    sendNotifications,
+    shortBreakLength,
+  } = state
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const settings = {
+    automaticBreak,
+    automaticPomodoro,
+    alarmSong,
+    displayBreakMenu,
+    displayDocTitleTimer,
+    longBreakLength,
+    lunchBreakLength,
+    playSong,
+    pomodoroLength,
+    pomodoroCount,
+    pomodoroDailyTarget,
+    pomodoroWeeklyTarget,
+    sendNotifications,
+    shortBreakLength,
+  }
+  // Update the local storage everytime the state is updated
+  useEffect(() => {
+    localStorage.setItem('userSettings', JSON.stringify(settings))
+  }, [settings])
+
   return (
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   )

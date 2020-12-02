@@ -19,15 +19,16 @@ const useTimerControlStyles = makeStyles((theme) => ({
   },
 }))
 
-const TimerControl = ({ isActive, setIsActive, setTime }) => {
+const TimerControl = ({ isActive, setIsActive, setTime, handleStart }) => {
   const [state] = useContext(Context)
   const { root, buttonSecondary, controllers, mr } = useTimerControlStyles()
+
   return (
     <>
       <Toolbar variant='dense' className={root}>
         <Button
           fullWidth={true}
-          onClick={() => setIsActive(true)}
+          onClick={() => !isActive && handleStart('pomodoro')}
           variant='contained'
           className={buttonSecondary}
         >
