@@ -69,17 +69,19 @@ const Timer = () => {
 
   // Countdown timer
   useEffect(() => {
-    const handleSaveLog = () => {
-      let userLogs = []
-      // Parse the serialized data back into an aray of objects
-      userLogs = JSON.parse(localStorage.getItem('session')) || []
-      // Push the new data (whether it be an object or anything else) onto the array
-      userLogs.push(state.currentSession)
-      // Re-serialize the array back into a string and store it in localStorage
-      localStorage.setItem('session', JSON.stringify(userLogs))
+    // const handleSaveLog = () => {
+    //   let userLogs = []
+    //   // Parse the serialized data back into an aray of objects
+    //   userLogs = JSON.parse(localStorage.getItem('session')) || []
+    //   // Push the new data (whether it be an object or anything else) onto the array
+    //   userLogs.push(state.currentSession)
+    //   // Re-serialize the array back into a string and store it in localStorage
+    //   localStorage.setItem('session', JSON.stringify(userLogs))
+    //   // Reset current session on the state
 
-      console.log(localStorage)
-    }
+    //   console.log(state.currentSession)
+    //   console.log(localStorage)
+    // }
     const handleTimeOver = () => {
       const message =
         state.currentSession.session === pomodoro
@@ -91,7 +93,8 @@ const Timer = () => {
       const payload = new Date().toLocaleTimeString('en-GB')
 
       dispatch({ type: SET_END_TIME, payload })
-      handleSaveLog()
+      // handleSaveLog()
+      // dispatch({ type: SET_CURRENT_SESSION, payload: {} })
 
       if (state.automaticBreak)
         setTimeout(() => {
