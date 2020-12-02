@@ -4,7 +4,7 @@ import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
 import { Context } from '../../StoreProvider/index'
-import { SET_CURRENT_SESSION } from '../../types'
+import { SET_CURRENT_SESSION, SET_END_TIME } from '../../types'
 
 const useTimerStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +36,10 @@ const Timer = () => {
   else document.title = 'My Pomodoro'
 
   useEffect(() => {
+    localStorage.clear()
+  }, [])
+
+  useEffect(() => {
     if (!('Notification' in window)) {
       console.log('This browser does not support desktop notification')
     } else {
@@ -45,7 +49,7 @@ const Timer = () => {
 
   // Song play
   useEffect(() => {
-    setIsSongPlaying(false) // initial render do not play
+    setIsSongPlaying(false) // initial render clear cashed sound
 
     const stopSound = () => {
       audioRef.current.pause()
@@ -65,19 +69,29 @@ const Timer = () => {
 
   // Countdown timer
   useEffect(() => {
-    const handlePomodoroTimeOver = () => {
-      const message = 'Pomodoro is over. Take some stretch'
+    const handleSaveLog = () => {
+      let userLogs = []
+      // Parse the serialized data back into an aray of objects
+      userLogs = JSON.parse(localStorage.getItem('session')) || []
+      // Push the new data (whether it be an object or anything else) onto the array
+      userLogs.push(state.currentSession)
+      // Re-serialize the array back into a string and store it in localStorage
+      localStorage.setItem('session', JSON.stringify(userLogs))
+
+      console.log(localStorage)
+    }
+    const handleTimeOver = () => {
+      const message =
+        state.currentSession.session === pomodoro
+          ? 'Pomodoro is over. Take some stretch'
+          : 'Break is over! Time to to focus!.'
+
       if (state.sendNotifications) new Notification(message)
 
-      // dispatch({
-      //   type: SET_CURRENT_SESSION,
-      //   payload: {
-      //     session: 'pomodoro',
-      //     // duration: breakDuration,
-      //     startTime: new Date().toLocaleTimeString('en-GB'),
-      //     id: Date.now(),
-      //   },
-      // })
+      const payload = new Date().toLocaleTimeString('en-GB')
+
+      dispatch({ type: SET_END_TIME, payload })
+      handleSaveLog()
 
       if (state.automaticBreak)
         setTimeout(() => {
@@ -86,35 +100,13 @@ const Timer = () => {
         }, 3000)
     }
 
-    const handleBreakTimeOver = (breakDuration) => {
-      // dispatch({
-      //   type: SET_CURRENT_SESSION,
-      //   payload: {
-      //     session: 'pomodoro',
-      //     duration: breakDuration,
-      //     startTime: new Date().toLocaleTimeString('en-GB'),
-      //     id: Date.now(),
-      //   },
-      // })
-      const message = "Break is over! Let's get back to work."
-      if (state.sendNotifications) new Notification(message)
-      if (state.automaticPomodoro)
-        setTimeout(() => {
-          setTime(state.pomodoroLength)
-          setIsActive(true)
-        }, 3000)
-    }
-
     let interval = null
     if (time === 0) {
       setIsActive(false)
+      handleTimeOver()
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
-    if (time === 0 && state.timerType === pomodoro)
-      handlePomodoroTimeOver(state.pomodoroLength)
 
-    if (time === 0 && state.timerType !== pomodoro)
-      handleBreakTimeOver(state.timerType)
     if (isActive) {
       interval = setInterval(() => {
         setTime((time) => time - 1)
@@ -136,10 +128,11 @@ const Timer = () => {
     state.timerType,
     state.shortBreakLength,
     dispatch,
+    state.currentSession,
+    state.currentSession.endTime,
   ])
 
   const handleStart = (sessionType) => {
-    // if (isActive) return
     setIsActive(true)
     dispatch({
       type: SET_CURRENT_SESSION,
