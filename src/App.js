@@ -6,6 +6,7 @@ import Log from './components/Log'
 import { useEffect, useContext } from 'react'
 
 function App() {
+  // useEffect(() => console.log(JSON.parse(localStorage.userSettings)), [])
   return (
     <div className='App'>
       <StoreProvider>

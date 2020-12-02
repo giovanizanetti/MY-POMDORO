@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useEffect } from 'react'
 import Reducer from '../reducers/settings'
 
 let initialState = {
@@ -16,15 +16,24 @@ let initialState = {
   pomodoroWeeklyTarget: 0,
   sendNotifications: true,
   shortBreakLength: 3,
+
   openSettings: false,
   openLogs: false,
-  error: null,
   timerType: 'pomodoro',
   currentSession: {},
 }
 
+// assign local state to ls state to get saved user's settings
+initialState = JSON.parse(localStorage.userSettings)
+
 const Store = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
+
+  // Update the ls everytime the state is updated
+  useEffect(() => {
+    localStorage.setItem('userSettings', JSON.stringify(state))
+  }, [state])
+
   return (
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
   )
