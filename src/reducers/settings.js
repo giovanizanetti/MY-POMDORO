@@ -66,7 +66,7 @@ export default (state, action) => {
       return { ...state, currentSession: action.payload }
     case SET_END_TIME_AND_SAVE:
       const clonedObj = Object.assign(state.currentSession)
-      clonedObj.endtime = action.payload // add end time
+      clonedObj.endTime = action.payload // add end time
       let userLogs = []
       // Parse the serialized data back into an aray of objects
       userLogs = JSON.parse(localStorage.getItem('session')) || []
