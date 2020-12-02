@@ -17,6 +17,7 @@ import {
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
   SET_CURRENT_SESSION,
+  SET_END_TIME,
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -61,6 +62,10 @@ export default (state, action) => {
       return { ...state, timerType: action.payload }
     case SET_CURRENT_SESSION:
       return { ...state, currentSession: action.payload }
+    case SET_END_TIME:
+      const clonedObj = Object.assign(state.currentSession)
+      clonedObj.endtime = action.payload // add end time
+      return { ...state, currentSession: clonedObj }
     default:
       return state
   }
