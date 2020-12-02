@@ -31,7 +31,6 @@ const Timer = () => {
   else document.title = 'My Pomodoro'
 
   useEffect(() => {
-    localStorage.clear()
     dispatch({ type: SET_CURRENT_SESSION, payload: {} })
     console.log(localStorage)
   }, [dispatch])

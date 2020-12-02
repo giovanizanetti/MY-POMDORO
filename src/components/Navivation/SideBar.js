@@ -15,7 +15,7 @@ import {
   Icon,
 } from '@material-ui/core'
 
-import { SET_OPEN_SETTINGS } from '../../types'
+import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 
 export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
   const [state, dispatch] = useContext(Context)

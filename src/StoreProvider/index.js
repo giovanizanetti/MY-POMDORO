@@ -17,7 +17,7 @@ let initialState = {
   sendNotifications: true,
   shortBreakLength: 3,
   openSettings: false,
-  openLogos: false,
+  openLogs: false,
   error: null,
   timerType: 'pomodoro',
   currentSession: {},
