@@ -1,11 +1,6 @@
-import { useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
-import {
-  Dialog,
-  DialogTitle,
-  Typography,
-  DialogContent,
-} from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Context } from '../StoreProvider'
 import { SET_OPEN_LOGS } from '../types'
@@ -21,9 +16,7 @@ const columnsSchema = [
 
 const Log = () => {
   const [state, dispatch] = useContext(Context)
-  const data = localStorage.session
-    ? JSON.parse(localStorage.session)
-    : undefined
+  const data = localStorage.session && JSON.parse(localStorage.session)
 
   return (
     <Dialog

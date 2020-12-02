@@ -43,6 +43,7 @@ const Timer = () => {
   }, [])
 
   // Song play
+  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
   useEffect(() => {
     setIsSongPlaying(false) // in initial render clear cashed sound
 
@@ -63,6 +64,7 @@ const Timer = () => {
   }, [isSongPlaying])
 
   // Countdown timer
+  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
   useEffect(() => {
     const handleTimeOver = () => {
       const message =

@@ -15,7 +15,7 @@ let initialState = {
   pomodoroDailyTarget: 0,
   pomodoroWeeklyTarget: 0,
   sendNotifications: true,
-  shortBreakLength: 3,
+  shortBreakLength: 300,
   // those below are not settings
   openSettings: false,
   openLogs: false,
@@ -71,9 +71,7 @@ const Store = ({ children }) => {
   // Update the local storage everytime the state is updated
   useEffect(() => {
     localStorage.setItem('userSettings', JSON.stringify(settings))
-    console.log(JSON.parse(localStorage.userSettings))
-    console.log(state)
-  }, [settings, state])
+  }, [settings])
 
   return (
     <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
