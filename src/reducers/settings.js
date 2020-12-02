@@ -12,6 +12,7 @@ import {
   SET_POMODORO_WEEKLY_TARGET,
   SET_DISPLAY_DOC_TITLE_TIMER,
   SET_OPEN_SETTINGS,
+  SET_OPEN_LOGS,
   SET_TIMER_TYPE,
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
@@ -57,6 +58,8 @@ export default (state, action) => {
       return { ...state, automaticPomodoro: !state.automaticPomodoro }
     case SET_OPEN_SETTINGS:
       return { ...state, openSettings: !state.openSettings }
+    case SET_OPEN_LOGS:
+      return { ...state, openLogs: !state.openLogs }
     case SET_TIMER_TYPE:
       return { ...state, timerType: action.payload }
     case SET_CURRENT_SESSION:
