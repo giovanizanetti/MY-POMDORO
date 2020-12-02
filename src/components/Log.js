@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
-import { Dialog } from '@material-ui/core'
+import { Dialog, DialogTitle } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Context } from '../StoreProvider'
+import { SET_OPEN_LOGS } from '../types'
 
 export const useStyles = makeStyles((theme) => ({}))
 
@@ -49,6 +51,7 @@ const rows = [
 ]
 
 const Log = () => {
+  const [state, dispatch] = useContext(Context)
   const [open, setOpen] = useState(true)
 
   useEffect(() => console.log(localStorage), [])
@@ -61,10 +64,11 @@ const Log = () => {
     <Dialog
       fullWidth={true}
       maxWidth={'md'}
-      onClose={() => setOpen(false)}
+      onClose={() => dispatch({ type: SET_OPEN_LOGS })}
       aria-labelledby='max-width-dialog-title'
-      open={open}
+      open={state.openLogs}
     >
+      <DialogTitle onClose={true}>Logs</DialogTitle>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows} //THIS DATA WILL COME FROM LOCAL STORE
