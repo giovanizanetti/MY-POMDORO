@@ -13,11 +13,10 @@ import {
   SET_DISPLAY_DOC_TITLE_TIMER,
   SET_OPEN_SETTINGS,
   SET_TIMER_TYPE,
-  // SET_ERROR,
   SET_AUTOMATIC_BREAK,
   SET_AUTOMATIC_POMODORO,
   SET_CURRENT_SESSION,
-  SET_END_TIME,
+  SET_END_TIME_AND_SAVE,
 } from '../types'
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -62,7 +61,7 @@ export default (state, action) => {
       return { ...state, timerType: action.payload }
     case SET_CURRENT_SESSION:
       return { ...state, currentSession: action.payload }
-    case SET_END_TIME:
+    case SET_END_TIME_AND_SAVE:
       const clonedObj = Object.assign(state.currentSession)
       clonedObj.endtime = action.payload // add end time
       let userLogs = []

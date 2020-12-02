@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -50,6 +50,8 @@ const rows = [
 
 const Log = () => {
   const [open, setOpen] = useState(true)
+
+  useEffect(() => console.log(localStorage), [])
 
   // console.log(new Date().toLocaleTimeString('en-GB'))
 
