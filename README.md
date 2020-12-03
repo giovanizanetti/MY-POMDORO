@@ -18,7 +18,7 @@ customizable features. Check the user stories **[here](https://github.com/giovan
 
 ## Goals for this project:
 
-- Practise: React hooks, CRUD app unsing teh browser local storage, GIT and PR's.
+- Practise: React hooks, CRUD app, use the browser local storage, GIT and PR's.
 - Learn Materail Ui component libraries.
 - Make a working application. 
 - Showcase a new working application on my portfolio.
