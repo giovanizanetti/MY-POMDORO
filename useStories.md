@@ -1,0 +1,11 @@
+## User stories
+- As a user, I want to be able to use a countdown timer so that I can be fully focused and more productive.
+- As I user, I want to be able to pause, reset and stop the timer so that I have full control of my application.
+- As I user, I want to be able to have breaks between each Pomodoro cycle.
+- As a user, I want to be able to access a settings panel so that I customize the app.
+- As a user, I want to able to choose between at least five options of alarm ring tones.
+- As a user, I want to be able t silence the alarm ring tone so that I don't disturb anyone working next to me.
+- As a user, I want to be able to see the timer on the document title so that even if I am working on a different tab I can check the remaining time.
+- As a user, I want to get a browser notification so that even if I am working on different tab or window I will receive a notification when time is over or should get back to work.
+- As I user I want to be able to configure the length of the Pomodoro cycle and the breaks so that I can fit it no my needs.
+- As a user, I want to be able to open a panel to see my previous activities with the completed time cycles so that I can measure if I am productive.
