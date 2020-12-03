@@ -18,9 +18,10 @@ customizable features. Check the user stories **[here](./userStories.md)**.
 
 ## Goals for this project:
 
-- Practise: React/Redux, CRUD app with firebase, authentication, fetch API, GIT and PR's.
+- Practise: React hooks, CRUD app unsing teh browser local storage, GIT and PR's.
+- Learn Materail Ui component libraries.
 - Make a working application. 
-- Showcase some of what I can do and get a job as a junior developer.
+- Showcase a new working application on my portfolio.
 
 
 ## Requirements
@@ -49,14 +50,16 @@ If you have feedback to improve my git usage: **[please drop me a line here!](ht
 
 ## My workflow
 
-I break the main problem into smaller problems, those smaller problems in even smaller pieces until I have tiny problems. I resolve one at the time, code, test, commit and push to Github.
+I break the main problem into smaller problems, those smaller problems in even smaller pieces until I have tiny problems. 
+
+I resolve one at the time, code, test, commit and push to Github.
 
 Usually, when I encounter a bug which is not related to the functionality I am working with, I take a note to tackle it later.
 
 If I have any idea during the development process, I take a note and try to implement it later.
 
 I like using [Trello](https://trello.com/b/KiV34P0Y/my-pomodoro) to help with my notes. 
-If I got stuck I always try to find the solution in one of the options:
+If I get stuck I always try to find the solution in one of the options:
   - Documentation
   - Google
   - Stackoverflow
