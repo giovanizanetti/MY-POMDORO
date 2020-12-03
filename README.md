@@ -9,7 +9,7 @@
 ## What this project is about
 
 I am creating a countdown timer based on the Pomodoro technic, using ReactJS. This enhanced app comes full of 
-customizable features. Check the user stories **[here](./userStories.md)**. 
+customizable features. Check the user stories **[here](https://github.com/giovanizanetti/MY-POMODORO/blob/main/useStories.md)**. 
 
 
 ## Technologies used
@@ -26,7 +26,7 @@ customizable features. Check the user stories **[here](./userStories.md)**.
 
 ## Requirements
 
-To guide my self through this project, I have created some user stories. **[Check it here](./userStories.md)**
+To guide my self through this project, I have created some user stories. **[Check it here](https://github.com/giovanizanetti/MY-POMODORO/blob/main/useStories.md)**
 
 
 ## Features built so far. Overview with pull requests
