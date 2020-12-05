@@ -69,7 +69,7 @@ const Timer = () => {
     const handleTimeOver = () => {
       const message =
         state.currentSession.session === pomodoro
-          ? 'Pomodoro is over. Take some stretch'
+          ? 'Pomodoro is over. Have some stretch'
           : 'Break is over! Time to to focus!.'
 
       if (state.sendNotifications) new Notification(message)
@@ -131,19 +131,9 @@ const Timer = () => {
 
   return (
     <>
-      <audio
-        disableRemotePlayback={true}
-        ref={audioRef}
-        src={state.alarmSong}
-      />
+      <audio disableRemotePlayback={true} ref={audioRef} src={state.alarmSong} />
       <div>
-        {state.displayBreakMenu && (
-          <BreakControl
-            isActive={isActive}
-            handleStart={handleStart}
-            setTime={setTime}
-          />
-        )}
+        {state.displayBreakMenu && <BreakControl isActive={isActive} handleStart={handleStart} setTime={setTime} />}
         {isSongPlaying && (
           <IconButton className={ml} onClick={() => setIsSongPlaying(false)}>
             <Icon color='secondary'>music_off</Icon>
@@ -152,12 +142,7 @@ const Timer = () => {
 
         <span className={root}>{countDown}</span>
 
-        <TimerControl
-          handleStart={handleStart}
-          isActive={isActive}
-          setIsActive={setIsActive}
-          setTime={setTime}
-        />
+        <TimerControl handleStart={handleStart} isActive={isActive} setIsActive={setIsActive} setTime={setTime} />
       </div>
     </>
   )

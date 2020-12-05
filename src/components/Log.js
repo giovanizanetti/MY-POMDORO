@@ -1,11 +1,8 @@
 import { useContext } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { Context } from '../StoreProvider'
 import { SET_OPEN_LOGS } from '../types'
-
-export const useStyles = makeStyles((theme) => ({}))
 
 const columnsSchema = [
   { field: 'session', headerName: 'Session', width: 150 },
@@ -26,9 +23,7 @@ const Log = () => {
       aria-labelledby='max-width-dialog-title'
       open={state.openLogs}
     >
-      <DialogTitle onClose={() => dispatch({ type: SET_OPEN_LOGS })}>
-        Logs
-      </DialogTitle>
+      <DialogTitle onClose={() => dispatch({ type: SET_OPEN_LOGS })}>Logs</DialogTitle>
       <DialogContent>
         <div style={{ height: 400, width: '100%' }}>
           {data ? (
