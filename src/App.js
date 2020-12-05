@@ -3,15 +3,19 @@ import Navigation from './components/Navivation'
 import Timer from './components/Timer'
 import StoreProvider from './StoreProvider/index'
 import Log from './components/Log'
+import Particles from 'react-particles-js'
+import { config } from './particles-config'
 
 function App() {
   return (
     <div className='App'>
       <StoreProvider>
         <Navigation />
-        <header className='App-header'>
+        {console.log(config)}
+        <Particles params={config} />
+        <div className='App-header'>
           <Timer />
-        </header>
+        </div>
         <Log />
       </StoreProvider>
     </div>
