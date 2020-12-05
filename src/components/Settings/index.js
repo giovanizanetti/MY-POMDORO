@@ -1,10 +1,13 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { Context } from '../../StoreProvider'
 import SelectSong from './SelectSong'
 import SelectShortBreak from './SelectShortBreak'
 import SelectLongBreak from './SelectLongBreak'
 import SelectLunchBreak from './SelectLunchBreak'
 import SelectPomodoroLength from './SelectPomodoroLength'
+import SwitchDocTitleBrowser from './SwitchDocTitleBrowser'
+import SwitchBrowserNotifications from './SwitchBrowserNotifications'
+import SwitchAutomaticBreak from './SwitchAutomaticBreak'
 
 import {
   Dialog,
@@ -12,16 +15,12 @@ import {
   DialogContent,
   Button,
   DialogActions,
-  Typography,
   Icon,
   IconButton,
   FormControl,
   FormControlLabel,
   FormGroup,
   Switch,
-  MenuItem,
-  InputLabel,
-  Select,
 } from '@material-ui/core'
 
 import {
@@ -42,20 +41,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
 }))
 
 const Settings = () => {
   const [state, dispatch] = useContext(Context)
 
-  const { modalHeader, button, formControl } = useStyles()
+  const { modalHeader } = useStyles()
 
   return (
     <div>
@@ -76,31 +67,10 @@ const Settings = () => {
           </div>
         </DialogTitle>
         <DialogContent dividers>
-          {/* <Typography gutterBottom>Settings</Typography> */}
           <FormControl component='fieldset'>
             <FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={state.displayDocTitleTimer}
-                    onChange={() =>
-                      dispatch({ type: SET_DISPLAY_DOC_TITLE_TIMER })
-                    }
-                    name='Timer indication on the browser title'
-                  />
-                }
-                label='Timer indication on the browser title'
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={state.sendNotifications}
-                    onChange={() => dispatch({ type: SET_SEND_NOTIFICATIONS })}
-                    name='Browser notifications'
-                  />
-                }
-                label='Browser notifications'
-              />
+              <SwitchDocTitleBrowser />
+              <SwitchBrowserNotifications />
               <FormControlLabel
                 control={
                   <Switch
@@ -111,16 +81,8 @@ const Settings = () => {
                 }
                 label='Alarm Song'
               />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={state.automaticBreak}
-                    onChange={() => dispatch({ type: SET_AUTOMATIC_BREAK })}
-                    name='Automatic break'
-                  />
-                }
-                label='Automatic starts a new break when pomodoro is over'
-              />
+              <SwitchAutomaticBreak />
+
               <FormControlLabel
                 control={
                   <Switch
