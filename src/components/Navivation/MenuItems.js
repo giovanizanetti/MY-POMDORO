@@ -1,4 +1,6 @@
 import { useContext } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+
 import {
   List,
   ListItem,
@@ -9,11 +11,23 @@ import {
 import { Context } from '../../StoreProvider/index'
 import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  icon: { minWidth: '35px' },
+})
+
 const MenuItems = ({ displayDesktop }) => {
   const [state, dispatch] = useContext(Context)
+  const { list, icon } = useStyles()
 
   return (
-    <List style={displayDesktop && { display: 'flex' }}>
+    <List
+      className={list}
+      conmponent='ul'
+      style={displayDesktop && { display: 'flex' }}
+    >
       {[
         {
           name: 'Settings',
@@ -28,13 +42,12 @@ const MenuItems = ({ displayDesktop }) => {
         { name: 'FAQ', icon: 'help_outline' },
       ].map((item) => (
         <ListItem
-          disableGutters={displayDesktop && true}
           ContainerComponent='li'
           button
           key={item.name}
           onClick={item.action}
         >
-          <ListItemIcon>
+          <ListItemIcon className={icon}>
             <Icon>{item.icon}</Icon>
           </ListItemIcon>
           {!displayDesktop && <ListItemText primary={item.name} />}

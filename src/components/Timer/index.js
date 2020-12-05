@@ -43,7 +43,7 @@ const Timer = () => {
   }, [])
 
   // Song play
-  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
+  //  CANDIDATE TO BE EXTRACT TO ITS OWN HOOK
   useEffect(() => {
     setIsSongPlaying(false) // in initial render clear cashed sound
 

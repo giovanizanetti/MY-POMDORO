@@ -16,6 +16,7 @@ const Navigation = () => {
 
   const toggleSideDrawer = () => setIsVisible(!isVisible)
 
+  //CANDITATE FOR ITS OWN HOOK
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 600) setShowHamburguerMenu(true)

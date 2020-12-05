@@ -1,11 +1,14 @@
-import React, { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Toolbar, Button, Icon } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Context } from '../../StoreProvider/index'
 
 const useBreakControlStyles = makeStyles((theme) => ({
-  root: {
+  desktop: {
     whiteSpace: 'nowrap',
+  },
+  mobile: {
+    flexDirection: 'column',
   },
   m: {
     margin: theme.spacing(1),
@@ -17,7 +20,18 @@ const useBreakControlStyles = makeStyles((theme) => ({
 
 const BreakControl = ({ isActive, setTime, handleStart }) => {
   const [state] = useContext(Context)
-  const { root, m, mr } = useBreakControlStyles()
+  const { desktop, mobile, m, mr } = useBreakControlStyles()
+
+  const isMobileScreen = window.innerWidth < 600 ? true : false
+  const [applyResponsiveStyle, setApplyResponsiveStyle] = useState(isMobileScreen)
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 600) setApplyResponsiveStyle(true)
+      else setApplyResponsiveStyle(false)
+    }
+    window.addEventListener('resize', handleResize)
+  }, [])
 
   const handleBreak = (breakLengh, breakType) => {
     if (!isActive) {
@@ -28,7 +42,7 @@ const BreakControl = ({ isActive, setTime, handleStart }) => {
 
   return (
     <>
-      <Toolbar variant='dense' className={root}>
+      <Toolbar variant='dense' className={applyResponsiveStyle ? mobile : desktop}>
         <Button
           fullWidth={true}
           onClick={() => handleBreak(state.shortBreakLength, 'short break')}
