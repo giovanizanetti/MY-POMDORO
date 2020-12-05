@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import {
   List,
   ListItem,
@@ -9,11 +9,11 @@ import {
 import { Context } from '../../StoreProvider/index'
 import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 
-const MenuItems = () => {
+const MenuItems = ({ displayDesktop }) => {
   const [state, dispatch] = useContext(Context)
 
   return (
-    <List>
+    <List style={displayDesktop && { display: 'flex' }}>
       {[
         {
           name: 'Settings',
@@ -27,11 +27,17 @@ const MenuItems = () => {
         },
         { name: 'FAQ', icon: 'help_outline' },
       ].map((item) => (
-        <ListItem button key={item.name} onClick={item.action}>
+        <ListItem
+          disableGutters={displayDesktop && true}
+          ContainerComponent='li'
+          button
+          key={item.name}
+          onClick={item.action}
+        >
           <ListItemIcon>
             <Icon>{item.icon}</Icon>
           </ListItemIcon>
-          <ListItemText primary={item.name} />
+          {!displayDesktop && <ListItemText primary={item.name} />}
         </ListItem>
       ))}
     </List>

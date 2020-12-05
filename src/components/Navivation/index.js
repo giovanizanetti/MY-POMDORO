@@ -10,7 +10,8 @@ import { Context } from '../../StoreProvider/index'
 const Navigation = () => {
   const { root, alignNavItems, logo, menuButton } = useNavStyles()
   const [isVisible, setIsVisible] = useState(false)
-  const [showHamburgerMenu, setShowHamburguerMenu] = useState(true)
+  const isMobileScreen = window.innerWidth < 600 ? true : false
+  const [showHamburgerMenu, setShowHamburguerMenu] = useState(isMobileScreen)
   const [state, dispatch] = useContext(Context)
 
   const toggleSideBar = () => setIsVisible(!isVisible)
@@ -20,9 +21,8 @@ const Navigation = () => {
       if (window.innerWidth < 600) setShowHamburguerMenu(true)
       else setShowHamburguerMenu(false)
     }
-
     window.addEventListener('resize', handleResize)
-  })
+  }, [])
 
   return (
     <>
@@ -42,7 +42,7 @@ const Navigation = () => {
               <MenuIcon />
             </IconButton>
           ) : (
-            <MenuItems />
+            <MenuItems displayDesktop={true} />
           )}
         </Toolbar>
       </AppBar>
