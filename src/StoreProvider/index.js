@@ -2,8 +2,8 @@ import React, { createContext, useReducer, useEffect } from 'react'
 import Reducer from '../reducers/settings'
 
 let initialState = {
-  automaticBreak: true,
-  automaticPomodoro: true,
+  automaticBreak: false,
+  automaticPomodoro: false,
   alarmSong: '/songs/alarm_not_too_loud.mp3',
   displayBreakMenu: true,
   displayDocTitleTimer: true,
@@ -24,8 +24,7 @@ let initialState = {
 }
 
 // local storage user's saved settings
-const lsState =
-  localStorage.userSettings && JSON.parse(localStorage.userSettings)
+const lsState = localStorage.userSettings && JSON.parse(localStorage.userSettings)
 // merge with initial state
 initialState = { ...initialState, ...lsState }
 
@@ -73,9 +72,7 @@ const Store = ({ children }) => {
     localStorage.setItem('userSettings', JSON.stringify(settings))
   }, [settings])
 
-  return (
-    <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
-  )
+  return <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
 }
 
 export const Context = createContext(initialState)
