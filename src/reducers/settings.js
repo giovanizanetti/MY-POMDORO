@@ -57,7 +57,6 @@ export default (state, action) => {
     case SET_AUTOMATIC_POMODORO:
       return { ...state, automaticPomodoro: !state.automaticPomodoro }
     case SET_OPEN_SETTINGS:
-      console.log('clicked')
       return { ...state, openSettings: !state.openSettings }
     case SET_OPEN_LOGS:
       return { ...state, openLogs: !state.openLogs }
@@ -67,8 +66,7 @@ export default (state, action) => {
       return { ...state, currentSession: action.payload }
     case SET_END_TIME_AND_SAVE:
       const ls = localStorage.session && JSON.parse(localStorage.session)
-      const isLogExists =
-        ls && ls.find((session) => session.id === state.currentSession.id)
+      const isLogExists = ls && ls.find((session) => session.id === state.currentSession.id)
       if (!isLogExists) {
         const clonedObj = Object.assign(state.currentSession)
         // add end time
