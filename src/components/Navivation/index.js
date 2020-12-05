@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core'
 import { useNavStyles } from './style'
 import MenuIcon from '@material-ui/icons/Menu'
-import SideBar from './SideBar'
+import SideDrawer from './SideDrawer'
 import MenuItems from './MenuItems'
 import Settings from '../Settings'
 import { Context } from '../../StoreProvider/index'
@@ -14,7 +14,7 @@ const Navigation = () => {
   const [showHamburgerMenu, setShowHamburguerMenu] = useState(isMobileScreen)
   const [state, dispatch] = useContext(Context)
 
-  const toggleSideBar = () => setIsVisible(!isVisible)
+  const toggleSideDrawer = () => setIsVisible(!isVisible)
 
   useEffect(() => {
     function handleResize() {
@@ -37,7 +37,7 @@ const Navigation = () => {
               className={menuButton}
               color='inherit'
               aria-label='menu'
-              onClick={() => toggleSideBar()}
+              onClick={() => toggleSideDrawer()}
             >
               <MenuIcon />
             </IconButton>
@@ -47,10 +47,10 @@ const Navigation = () => {
         </Toolbar>
       </AppBar>
       {isVisible && (
-        <SideBar
-          onClick={() => toggleSideBar()}
+        <SideDrawer
+          onClick={() => toggleSideDrawer()}
           isVisible={isVisible}
-          toggleSideBar={toggleSideBar}
+          toggleSideDrawer={toggleSideDrawer}
         />
       )}
       {state.openSettings && <Settings />}
