@@ -11,7 +11,6 @@ function App() {
     <div className='App'>
       <StoreProvider>
         <Navigation />
-        {console.log(config)}
         <Particles params={config} />
         <div className='App-header'>
           <Timer />
