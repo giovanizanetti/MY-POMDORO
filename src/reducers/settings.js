@@ -57,6 +57,7 @@ export default (state, action) => {
     case SET_AUTOMATIC_POMODORO:
       return { ...state, automaticPomodoro: !state.automaticPomodoro }
     case SET_OPEN_SETTINGS:
+      console.log('clicked')
       return { ...state, openSettings: !state.openSettings }
     case SET_OPEN_LOGS:
       return { ...state, openLogs: !state.openLogs }

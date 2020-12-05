@@ -4,6 +4,7 @@ import { useSideBarStyles } from './style'
 import { useContext, useEffect } from 'react'
 import { Context } from '../../StoreProvider/index'
 import Settings from '../Settings'
+import MenuItems from './MenuItems'
 
 import {
   Drawer,
@@ -15,13 +16,11 @@ import {
   Icon,
 } from '@material-ui/core'
 
-import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
+// import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 
 export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
   const [state, dispatch] = useContext(Context)
   const { list, fullList } = useSideBarStyles()
-
-  useEffect(() => console.log('sideMenu'), [])
 
   const renderList = (anchor) => (
     <>
@@ -37,7 +36,7 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
 
         <Divider />
 
-        <List>
+        {/* <List>
           {[
             {
               name: 'Settings',
@@ -58,7 +57,8 @@ export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
               <ListItemText primary={item.name} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
+        <MenuItems />
       </div>
       {state.openSettings && <Settings />}
     </>
