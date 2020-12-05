@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 import { useSideBarStyles } from './style'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Context } from '../../StoreProvider/index'
 import Settings from '../Settings'
 
@@ -20,6 +20,8 @@ import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 export default function TemporaryDrawer({ toggleSideBar, isVisible }) {
   const [state, dispatch] = useContext(Context)
   const { list, fullList } = useSideBarStyles()
+
+  useEffect(() => console.log('sideMenu'), [])
 
   const renderList = (anchor) => (
     <>
