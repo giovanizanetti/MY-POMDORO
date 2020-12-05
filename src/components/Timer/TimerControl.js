@@ -1,11 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Toolbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { PlayArrow, Restore, Pause } from '@material-ui/icons'
 import { Context } from '../../StoreProvider'
 
 const useTimerControlStyles = makeStyles((theme) => ({
-  root: { justifyContent: 'center' },
+  desktop: { justifyContent: 'center' },
+  mobile: { justifyContent: 'center', flexDirection: 'column' },
   buttonSecondary: {
     color: 'rgba(0,0,0,.87)',
     backgroundColor: '#4caf50',
@@ -21,11 +22,22 @@ const useTimerControlStyles = makeStyles((theme) => ({
 
 const TimerControl = ({ isActive, setIsActive, setTime, handleStart }) => {
   const [state] = useContext(Context)
-  const { root, buttonSecondary, controllers, mr } = useTimerControlStyles()
+
+  let initialScreenSize = window.innerWidth < 600 ? true : false
+  const [isMobileScreen, setIsMobileScreen] = useState(initialScreenSize)
+  const { desktop, mobile, buttonSecondary, controllers, mr } = useTimerControlStyles()
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 600) setIsMobileScreen(true)
+      else setIsMobileScreen(false)
+    }
+    window.addEventListener('resize', handleResize)
+  }, [])
 
   return (
     <>
-      <Toolbar variant='dense' className={root}>
+      <Toolbar variant='dense' className={isMobileScreen ? mobile : desktop}>
         <Button
           fullWidth={true}
           onClick={() => !isActive && handleStart('pomodoro')}

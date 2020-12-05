@@ -66,8 +66,7 @@ export default (state, action) => {
       return { ...state, currentSession: action.payload }
     case SET_END_TIME_AND_SAVE:
       const ls = localStorage.session && JSON.parse(localStorage.session)
-      const isLogExists =
-        ls && ls.find((session) => session.id === state.currentSession.id)
+      const isLogExists = ls && ls.find((session) => session.id === state.currentSession.id)
       if (!isLogExists) {
         const clonedObj = Object.assign(state.currentSession)
         // add end time
