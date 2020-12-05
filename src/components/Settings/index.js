@@ -8,6 +8,8 @@ import SelectPomodoroLength from './SelectPomodoroLength'
 import SwitchDocTitleBrowser from './SwitchDocTitleBrowser'
 import SwitchBrowserNotifications from './SwitchBrowserNotifications'
 import SwitchAutomaticBreak from './SwitchAutomaticBreak'
+import SwitchPlayAlarmSong from './SwitchPlayAlarmSong'
+import SwitchAutomaticPomodoro from './SwitchAutomaticPomodoro'
 
 import {
   Dialog,
@@ -71,28 +73,10 @@ const Settings = () => {
             <FormGroup>
               <SwitchDocTitleBrowser />
               <SwitchBrowserNotifications />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={state.playSong}
-                    onChange={() => dispatch({ type: SET_PLAY_SONG })}
-                    name='Alarm'
-                  />
-                }
-                label='Alarm Song'
-              />
+              <SwitchPlayAlarmSong />
               <SwitchAutomaticBreak />
+              <SwitchAutomaticPomodoro />
 
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={state.automaticPomodoro}
-                    onChange={() => dispatch({ type: SET_AUTOMATIC_POMODORO })}
-                    name='Automatic break'
-                  />
-                }
-                label='Automatic starts new pomodoro when break is over'
-              />
               <FormControlLabel
                 control={
                   <Switch

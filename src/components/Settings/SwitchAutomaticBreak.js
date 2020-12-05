@@ -3,7 +3,7 @@ import { Context } from '../../StoreProvider'
 import { SET_AUTOMATIC_BREAK } from '../../types'
 import { useContext } from 'react'
 
-const SwitchDocTitleBrowser = () => {
+const SwitchAutomaticBreak = () => {
   const [state, dispatch] = useContext(Context)
   return (
     <FormControlLabel
@@ -19,4 +19,4 @@ const SwitchDocTitleBrowser = () => {
   )
 }
 
-export default SwitchDocTitleBrowser
+export default SwitchAutomaticBreak
