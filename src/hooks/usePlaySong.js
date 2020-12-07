@@ -1,12 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-export const usePlaySong = (isSongPlaying, setIsSongPlaying, alarmSong, audioRef) => {
-  console.log(isSongPlaying)
+export const usePlaySong = (alarmSong, audioRef) => {
+  const [isSongPlaying, setIsSongPlaying] = useState(false)
+
   useEffect(() => {
     console.log(alarmSong)
-    console.log(audioRef)
-
-    setIsSongPlaying(false) // clear cashed sound in initial render clear cashed sound
+    isSongPlaying && setIsSongPlaying(false) // clear cashed sound in initial render clear cashed sound
 
     const stopSound = () => {
       audioRef.current.pause()
@@ -22,6 +21,6 @@ export const usePlaySong = (isSongPlaying, setIsSongPlaying, alarmSong, audioRef
     } else {
       stopSound()
     }
-  }, [isSongPlaying, audioRef, setIsSongPlaying, alarmSong])
-  return isSongPlaying
+  }, [isSongPlaying, audioRef, alarmSong])
+  return [isSongPlaying, setIsSongPlaying]
 }
