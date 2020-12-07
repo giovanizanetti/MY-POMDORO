@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useContext } from 'react'
 import { usePlaySong } from '../../hooks/usePlaySong'
 import { useTimer } from '../../hooks/useTimer'
 import { useBrowserNotifications } from '../../hooks/useBrowserNotifications'
+import { useDocTitle } from '../../hooks/useDocTitle'
 import { makeStyles } from '@material-ui/core/styles'
+
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
@@ -37,10 +39,7 @@ const Timer = () => {
 
   const [setSendNotification] = useBrowserNotifications([state.sendNotifications, message])
 
-  useEffect(() => {
-    if (state.displayDocTitleTimer) document.title = countDown
-    else document.title = 'My Pomodoro'
-  }, [countDown, state.displayDocTitleTimer])
+  useDocTitle([state.displayDocTitleTimer, countDown])
 
   useEffect(() => {
     dispatch({ type: SET_CURRENT_SESSION, payload: {} })

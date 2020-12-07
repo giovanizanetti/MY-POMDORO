@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 export const useBrowserNotifications = ([enabledNotification, message]) => {
   const [sendNotification, setSendNotification] = useState(false)
-  console.log(enabledNotification, sendNotification)
   useEffect(() => {
     if (!('Notification' in window)) {
       console.log('This browser does not support desktop notification')
