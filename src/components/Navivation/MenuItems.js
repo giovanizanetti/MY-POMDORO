@@ -1,13 +1,7 @@
 import { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Icon,
-} from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText, Icon } from '@material-ui/core'
 import { Context } from '../../StoreProvider/index'
 import { SET_OPEN_SETTINGS, SET_OPEN_LOGS } from '../../types'
 
@@ -23,11 +17,7 @@ const MenuItems = ({ displayDesktop }) => {
   const { list, icon } = useStyles()
 
   return (
-    <List
-      className={list}
-      conmponent='ul'
-      style={displayDesktop && { display: 'flex' }}
-    >
+    <List className={list} conmponent='ul' style={displayDesktop && { display: 'flex' }}>
       {[
         {
           name: 'Settings',
@@ -41,15 +31,8 @@ const MenuItems = ({ displayDesktop }) => {
         },
         { name: 'FAQ', icon: 'help_outline' },
       ].map((item) => (
-        <ListItem
-          ContainerComponent='li'
-          button
-          key={item.name}
-          onClick={item.action}
-        >
-          <ListItemIcon className={icon}>
-            <Icon>{item.icon}</Icon>
-          </ListItemIcon>
+        <ListItem ContainerComponent='li' button key={item.name} onClick={item.action}>
+          <Icon className={icon}>{item.icon}</Icon>
           {!displayDesktop && <ListItemText primary={item.name} />}
         </ListItem>
       ))}

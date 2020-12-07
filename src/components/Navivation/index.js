@@ -27,7 +27,7 @@ const Navigation = () => {
 
   return (
     <>
-      <AppBar className={root} position='static'>
+      <AppBar className={root} position='absolute'>
         <Toolbar variant='regular' className={alignNavItems}>
           <Typography className={logo} variant='h6' color='inherit'>
             My Pomodoro
@@ -48,11 +48,7 @@ const Navigation = () => {
         </Toolbar>
       </AppBar>
       {isVisible && (
-        <SideDrawer
-          onClick={() => toggleSideDrawer()}
-          isVisible={isVisible}
-          toggleSideDrawer={toggleSideDrawer}
-        />
+        <SideDrawer onClick={() => toggleSideDrawer()} isVisible={isVisible} toggleSideDrawer={toggleSideDrawer} />
       )}
       {state.openSettings && <Settings />}
     </>
