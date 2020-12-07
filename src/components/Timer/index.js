@@ -1,5 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
+import { usePlaySong } from '../../hooks/usePlaySong'
+import { useTimer } from '../../hooks/useTimer'
+import { useBrowserNotification } from '../../hooks/useBrowserNotification'
+import { useDocTitle } from '../../hooks/useDocTitle'
 import { makeStyles } from '@material-ui/core/styles'
+
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
 import { IconButton, Icon } from '@material-ui/core'
@@ -18,62 +23,32 @@ const useTimerStyles = makeStyles((theme) => ({
 const Timer = () => {
   const [state, dispatch] = useContext(Context)
   const { root, ml } = useTimerStyles()
-  const [time, setTime] = useState(state.pomodoroLength)
-  const [isActive, setIsActive] = useState(false)
-  const [isSongPlaying, setIsSongPlaying] = useState(false)
-  const minutes = Math.floor(time / 60) % 60
+  const [time, setTime, isActive, setIsActive] = useTimer([state.pomodoroLength])
   const audioRef = useRef()
+  const [isSongPlaying, setIsSongPlaying] = usePlaySong([state.alarmSong, audioRef])
+
+  const minutes = Math.floor(time / 60) % 60
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
   const pomodoro = 'pomodoro'
 
-  if (state.displayDocTitleTimer) document.title = countDown
-  else document.title = 'My Pomodoro'
+  const message =
+    state.currentSession.session === pomodoro
+      ? 'Pomodoro is over. Have some stretch'
+      : 'Break is over! Time to to focus!.'
 
+  const [setSendNotification] = useBrowserNotification([state.sendNotifications, message])
+  // Display timer on document title
+  useDocTitle([state.displayDocTitleTimer, countDown])
+
+  // start with a clean current session
   useEffect(() => {
     dispatch({ type: SET_CURRENT_SESSION, payload: {} })
   }, [dispatch])
 
   useEffect(() => {
-    if (!('Notification' in window)) {
-      console.log('This browser does not support desktop notification')
-    } else {
-      Notification.requestPermission()
-    }
-  }, [])
-
-  // Song play
-  //  CANDIDATE TO BE EXTRACT TO ITS OWN HOOK
-  useEffect(() => {
-    setIsSongPlaying(false) // in initial render clear cashed sound
-
-    const stopSound = () => {
-      audioRef.current.pause()
-      audioRef.current.currentTime = 0
-    }
-
-    if (isSongPlaying) {
-      audioRef.current.play()
-      setTimeout(() => {
-        stopSound()
-        setIsSongPlaying(false)
-      }, 20000)
-    } else {
-      stopSound()
-    }
-  }, [isSongPlaying])
-
-  // Countdown timer
-  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
-  useEffect(() => {
     const handleTimeOver = () => {
-      const message =
-        state.currentSession.session === pomodoro
-          ? 'Pomodoro is over. Have some stretch'
-          : 'Break is over! Time to to focus!.'
-
-      if (state.sendNotifications) new Notification(message)
-
+      setSendNotification(true)
       const payload = new Date().toLocaleTimeString('en-GB')
 
       dispatch({ type: SET_END_TIME_AND_SAVE, payload })
@@ -84,36 +59,21 @@ const Timer = () => {
         }, 3000)
     }
 
-    let interval = null
     if (time === 0) {
       setIsActive(false)
       handleTimeOver()
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
-
-    if (isActive) {
-      interval = setInterval(() => {
-        setTime((time) => time - 1)
-      }, 1000)
-    } else if (!isActive && time !== 0) {
-      clearInterval(interval)
-    }
-
-    return () => clearInterval(interval)
   }, [
-    isActive,
     time,
     state.playSong,
-    pomodoro,
     state.automaticBreak,
-    state.automaticPomodoro,
-    state.sendNotifications,
-    state.pomodoroLength,
-    state.timerType,
     state.shortBreakLength,
     dispatch,
-    state.currentSession,
-    state.currentSession.endTime,
+    setIsSongPlaying,
+    setIsActive,
+    setTime,
+    setSendNotification,
   ])
 
   const handleStart = (sessionType) => {
@@ -139,9 +99,7 @@ const Timer = () => {
             <Icon color='secondary'>music_off</Icon>
           </IconButton>
         )}
-
         <span className={root}>{countDown}</span>
-
         <TimerControl handleStart={handleStart} isActive={isActive} setIsActive={setIsActive} setTime={setTime} />
       </div>
     </>
