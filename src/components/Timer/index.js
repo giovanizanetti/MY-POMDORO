@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useEffect, useRef, useContext } from 'react'
 import { usePlaySong } from '../../hooks/usePlaySong'
+import { useTimer } from '../../hooks/useTimer'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
@@ -19,8 +20,8 @@ const useTimerStyles = makeStyles((theme) => ({
 const Timer = () => {
   const [state, dispatch] = useContext(Context)
   const { root, ml } = useTimerStyles()
-  const [time, setTime] = useState(state.pomodoroLength)
-  const [isActive, setIsActive] = useState(false)
+
+  const [time, setTime, isActive, setIsActive] = useTimer([state.pomodoroLength])
   const audioRef = useRef()
   const [isSongPlaying, setIsSongPlaying] = usePlaySong([state.alarmSong, audioRef])
 
@@ -44,10 +45,6 @@ const Timer = () => {
     }
   }, [])
 
-  // Countdown timer
-  //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
-  // useTimer()
-
   useEffect(() => {
     const handleTimeOver = () => {
       const message =
@@ -67,22 +64,11 @@ const Timer = () => {
         }, 3000)
     }
 
-    let interval = null
     if (time === 0) {
       setIsActive(false)
       handleTimeOver()
       state.playSong && setIsSongPlaying(true) // play sound if is set in the user's settings
     }
-
-    if (isActive) {
-      interval = setInterval(() => {
-        setTime((time) => time - 1)
-      }, 1000)
-    } else if (!isActive && time !== 0) {
-      clearInterval(interval)
-    }
-
-    return () => clearInterval(interval)
   }, [
     isActive,
     time,
@@ -98,6 +84,8 @@ const Timer = () => {
     state.currentSession,
     state.currentSession.endTime,
     setIsSongPlaying,
+    setIsActive,
+    setTime,
   ])
 
   const handleStart = (sessionType) => {

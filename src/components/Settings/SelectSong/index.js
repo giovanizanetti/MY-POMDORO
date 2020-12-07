@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, useEffect } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { usePlaySong } from '../../../hooks/usePlaySong'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { Context } from '../../../StoreProvider/index'
@@ -43,6 +43,7 @@ const SelectSong = () => {
                 setIsSongPlaying(true)
               }}
               onMouseLeave={() => setIsSongPlaying(false)}
+              onClick={() => setIsSongPlaying(false)}
               key={song.name}
               value={song.path}
             >
