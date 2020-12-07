@@ -20,7 +20,7 @@ export const config = {
         nb_sides: 5,
       },
       image: {
-        src: 'img/github.svg',
+        src: process.env.PUBLIC_URL + '/favicon_package_v0.16/favicon-32x32.png',
         width: 100,
         height: 100,
       },
@@ -113,4 +113,12 @@ export const config = {
     background_repeat: 'no-repeat',
     background_size: 'cover',
   },
+}
+
+export const particlesStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
 }

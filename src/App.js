@@ -4,14 +4,23 @@ import Timer from './components/Timer'
 import StoreProvider from './StoreProvider/index'
 import Log from './components/Log'
 import Particles from 'react-particles-js'
-import { config } from './particles-config'
+import { config, particlesStyle } from './particles-config'
 
 function App() {
   return (
-    <div className='App'>
+    <div
+      className='App'
+      // style={{
+      //   position: 'absolute',
+      //   top: 0,
+      //   left: 0,
+      //   width: '100%',
+      //   height: '100%',
+      // }}
+    >
       <StoreProvider>
         <Navigation />
-        <Particles params={config} />
+        <Particles params={config} style={particlesStyle} />
         <div className='App-header'>
           <Timer />
         </div>
