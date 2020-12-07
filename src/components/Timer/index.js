@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
+import { usePlaySong } from '../../hooks/usePlaySong'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerControl from './TimerControl'
 import BreakControl from './BreakControl'
@@ -20,9 +21,10 @@ const Timer = () => {
   const { root, ml } = useTimerStyles()
   const [time, setTime] = useState(state.pomodoroLength)
   const [isActive, setIsActive] = useState(false)
-  const [isSongPlaying, setIsSongPlaying] = useState(false)
-  const minutes = Math.floor(time / 60) % 60
   const audioRef = useRef()
+  const [isSongPlaying, setIsSongPlaying] = usePlaySong([state.alarmSong, audioRef])
+
+  const minutes = Math.floor(time / 60) % 60
   const seconds = time % 60 < 10 ? `0${time % 60}` : time % 60
   const countDown = `${minutes}:${seconds}`
   const pomodoro = 'pomodoro'
@@ -42,29 +44,10 @@ const Timer = () => {
     }
   }, [])
 
-  // Song play
-  //  CANDIDATE TO BE EXTRACT TO ITS OWN HOOK
-  useEffect(() => {
-    setIsSongPlaying(false) // in initial render clear cashed sound
-
-    const stopSound = () => {
-      audioRef.current.pause()
-      audioRef.current.currentTime = 0
-    }
-
-    if (isSongPlaying) {
-      audioRef.current.play()
-      setTimeout(() => {
-        stopSound()
-        setIsSongPlaying(false)
-      }, 20000)
-    } else {
-      stopSound()
-    }
-  }, [isSongPlaying])
-
   // Countdown timer
   //  CANDIDATE TO BE EXTRACT TO TIS OWN HOOK
+  // useTimer()
+
   useEffect(() => {
     const handleTimeOver = () => {
       const message =
@@ -114,6 +97,7 @@ const Timer = () => {
     dispatch,
     state.currentSession,
     state.currentSession.endTime,
+    setIsSongPlaying,
   ])
 
   const handleStart = (sessionType) => {

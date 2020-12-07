@@ -1,12 +1,7 @@
 import { useContext } from 'react'
 import { Context } from '../../StoreProvider'
 import { SET_OPEN_SETTINGS } from '../../types'
-import {
-  Dialog,
-  DialogContent,
-  FormControl,
-  FormGroup,
-} from '@material-ui/core'
+import { Dialog, DialogContent, FormControl, FormGroup } from '@material-ui/core'
 import SettingsHeader from './SettingsHeader'
 import SelectSong from './SelectSong'
 import SelectShortBreak from './SelectShortBreak'
