@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from 'react'
 import { usePlaySong } from '../../hooks/usePlaySong'
 import { useTimer } from '../../hooks/useTimer'
-import { useBrowserNotifications } from '../../hooks/useBrowserNotifications'
+import { useBrowserNotification } from '../../hooks/useBrowserNotification'
 import { useDocTitle } from '../../hooks/useDocTitle'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -37,10 +37,11 @@ const Timer = () => {
       ? 'Pomodoro is over. Have some stretch'
       : 'Break is over! Time to to focus!.'
 
-  const [setSendNotification] = useBrowserNotifications([state.sendNotifications, message])
-
+  const [setSendNotification] = useBrowserNotification([state.sendNotifications, message])
+  // Display timer on document title
   useDocTitle([state.displayDocTitleTimer, countDown])
 
+  // start with a clean current session
   useEffect(() => {
     dispatch({ type: SET_CURRENT_SESSION, payload: {} })
   }, [dispatch])
