@@ -23,15 +23,17 @@ const MenuItems = ({ displayDesktop }) => {
           name: 'Settings',
           icon: 'settings',
           action: () => dispatch({ type: SET_OPEN_SETTINGS }),
+          testId: 'open-settings-handler',
         },
         {
           name: 'Log',
           icon: 'history',
           action: () => dispatch({ type: SET_OPEN_LOGS }),
+          testId: 'open-log-handler',
         },
-        { name: 'FAQ', icon: 'help_outline' },
+        { name: 'FAQ', icon: 'help_outline', testId: 'open-faq-handler' },
       ].map((item) => (
-        <ListItem ContainerComponent='li' button key={item.name} onClick={item.action}>
+        <ListItem data-testid={item.testId} ContainerComponent='li' button key={item.name} onClick={item.action}>
           <Icon className={icon}>{item.icon}</Icon>
           {!displayDesktop && <ListItemText primary={item.name} />}
         </ListItem>
