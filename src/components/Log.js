@@ -17,6 +17,7 @@ const Log = () => {
 
   return (
     <Dialog
+      data-testid='log-modal'
       fullWidth={true}
       maxWidth={'md'}
       onClose={() => dispatch({ type: SET_OPEN_LOGS })}
